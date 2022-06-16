@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Button } from 'react-native'
+import { StyleSheet, Text, View, Button, Linking } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import { BarCodeScanner } from 'expo-barcode-scanner'
 
@@ -51,7 +51,11 @@ const QR = () => {
           style={{ height: 400, width: 400 }}
         />
       </View>
-      <Text style={styles.maintext}>{text}</Text>
+      <Button
+        style={styles.maintext}
+        onPress={() => Linking.openURL(`${text}`)}
+        title={text}
+      />
 
       {scanned && (
         <Button
