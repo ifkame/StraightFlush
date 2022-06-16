@@ -34,7 +34,6 @@ const customStyles = {
 const ResignerPage = () => {
   const navigation = useNavigation('ResignerPage3')
 
-  const [currentPosition, setCurrentPosition] = useState(1)
   const [email, SetEmail] = useState()
   const [password, setPassword] = useState()
 
@@ -57,7 +56,7 @@ const ResignerPage = () => {
       </View>
       <StepIndicator
         customStyles={customStyles}
-        currentPosition={currentPosition}
+        currentPosition={1}
         labels={labels}
         stepCount={3}
       />

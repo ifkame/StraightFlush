@@ -18,6 +18,7 @@ import MyPage from './screens/MyPage'
 import ResignerPage1 from './screens/ResignerPage1'
 import ResignerPage2 from './screens/ResignerPage2'
 import ResignerPage3 from './screens/ResignerPage3'
+import QR from './screens/QR'
 
 const Stack = createNativeStackNavigator()
 const BottomTabs = createBottomTabNavigator()
@@ -27,6 +28,11 @@ const MapsNavigation = () => {
     <BottomTabs.Navigator
       screenOptions={{
         tabBarActiveTintColor: Colors.primary,
+        // tabBarStyle: {
+        //   borderTopLeftRadius: 28,
+        //   borderTopRightRadius: 28,
+        //   shadowOpacity: 0.2,
+        // },
       }}
     >
       <BottomTabs.Screen
@@ -47,8 +53,29 @@ const MapsNavigation = () => {
           title: '通知',
           tabBarLabel: '通知',
           tabBarIcon: ({ size, color }) => (
-            <FontAwesome name='bell-o' size={24} color={color} />
+            <FontAwesome name='bell' size={24} color={color} />
           ),
+        }}
+      />
+      <BottomTabs.Screen
+        name='QR'
+        component={QR}
+        options={{
+          title: 'QR',
+          tabBarLabel: 'QR',
+          // tabBarShowLabel: false,
+          tabBarIcon: ({ size, color }) => (
+            <Ionicons name='md-qr-code-sharp' size={40} color={color} />
+          ),
+          tabBarIconStyle: {
+            position: 'absolute',
+            top: -34,
+            height: 66,
+            width: 66,
+            backgroundColor: '#FCECCD',
+            borderRadius: 33,
+            shadowOpacity: 0.1,
+          },
         }}
       />
       <BottomTabs.Screen
@@ -58,7 +85,7 @@ const MapsNavigation = () => {
           title: 'イベント',
           tabBarLabel: 'イベント',
           tabBarIcon: ({ size, color }) => (
-            <Ionicons name='calendar-outline' size={24} color={color} />
+            <Ionicons name='calendar' size={24} color={color} />
           ),
         }}
       />
@@ -69,7 +96,7 @@ const MapsNavigation = () => {
           title: 'マイベージ',
           tabBarLabel: 'マイベージ',
           tabBarIcon: ({ size, color }) => (
-            <Ionicons name='person-outline' size={24} color={color} />
+            <Ionicons name='person' size={24} color={color} />
           ),
         }}
       />
