@@ -1,11 +1,12 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
+//フロントエンド
+import Notification from '../frontend/Notification'
+
 const Information = () => {
   return (
-    <View>
-      <Text>Information</Text>
-    </View>
+    <Notification />
   )
 }
 

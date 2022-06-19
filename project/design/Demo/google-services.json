@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "163601387827",
+    "project_id": "food-notice-app",
+    "storage_bucket": "food-notice-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:163601387827:android:26ec9ba6a4d0629f0e6e46",
+        "android_client_info": {
+          "package_name": "com.straightflush.foodencounter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "163601387827-tmhab6dvc6i54m55g3p1dtqfptlk252c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFBgULtmBBZrIU8UIriV1t_RI91Ss75a0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "163601387827-tmhab6dvc6i54m55g3p1dtqfptlk252c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
