@@ -189,6 +189,7 @@ function Notification() {
         */
         console.log('checkStatusAsync')
         const isRegistered = await TaskManager.isTaskRegisteredAsync(BACKGROUND_FETCH_TASK);
+        console.log(status)
         setStatus(status);
         setIsRegistered(isRegistered);
     };
