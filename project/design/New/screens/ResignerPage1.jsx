@@ -6,7 +6,7 @@ import Colors from '../constants/colors'
 import PrimaryButton from '../components/PrimaryButton'
 import { useNavigation } from '@react-navigation/native'
 
-const labels = ['Step 1', 'Step 2', '完了']
+const labels = ['Step 1', 'Step 2', 'Step 3']
 const customStyles = {
   stepIndicatorSize: 25,
   currentStepIndicatorSize: 30,

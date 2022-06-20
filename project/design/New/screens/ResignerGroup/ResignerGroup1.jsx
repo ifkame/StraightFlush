@@ -2,8 +2,8 @@ import { StyleSheet, Text, View, Image, TextInput } from 'react-native'
 import React, { useState } from 'react'
 import StepIndicator from 'react-native-step-indicator'
 
-import Colors from '../constants/colors'
-import PrimaryButton from '../components/PrimaryButton'
+import Colors from '../../constants/colors'
+import PrimaryButton from '../../components/PrimaryButton'
 import { useNavigation } from '@react-navigation/native'
 
 const labels = ['Step 1', 'Step 2', 'Step 3']
@@ -32,7 +32,7 @@ const customStyles = {
 }
 
 const ResignerPage = () => {
-  const navigation = useNavigation('ResignerPage3')
+  const navigation = useNavigation('ResignerGroup2')
 
   const [email, SetEmail] = useState()
   const [password, setPassword] = useState()
@@ -46,17 +46,17 @@ const ResignerPage = () => {
   }
 
   const onPressNext = () => {
-    navigation.navigate('ResignerPage3')
+    navigation.navigate('ResignerPage2')
   }
 
   return (
     <View style={styles.screen}>
       <View style={styles.imageContainer}>
-        <Image source={require('../assets/logo.png')} />
+        <Image source={require('../../assets/logo.png')} />
       </View>
       <StepIndicator
         customStyles={customStyles}
-        currentPosition={1}
+        currentPosition={0}
         labels={labels}
         stepCount={3}
       />
@@ -69,7 +69,7 @@ const ResignerPage = () => {
             autoCorrect={false}
             value={email}
             onChangeText={emailInputHandler}
-            placeholder='生年月日'
+            placeholder='メールアドレス'
           />
         </View>
         <View style={styles.inputPassword}>
@@ -79,8 +79,8 @@ const ResignerPage = () => {
             autoCorrect={false}
             value={password}
             onChangeText={passwordInputHandler}
-            placeholder='性別'
-            // secureTextEntry={true}
+            placeholder='パスワード'
+            secureTextEntry={true}
           />
         </View>
         <PrimaryButton onPress={onPressNext}>次へ</PrimaryButton>

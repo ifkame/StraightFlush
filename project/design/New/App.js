@@ -18,6 +18,9 @@ import MyPage from './screens/MyPage'
 import ResignerPage1 from './screens/ResignerPage1'
 import ResignerPage2 from './screens/ResignerPage2'
 import ResignerPage3 from './screens/ResignerPage3'
+import ResignerGroup1 from './screens/ResignerGroup/ResignerGroup1'
+import ResignerGroup2 from './screens/ResignerGroup/ResignerGroup2'
+import ResignerGroup3 from './screens/ResignerGroup/ResignerGroup3'
 import QR from './screens/QR'
 
 const Stack = createNativeStackNavigator()
@@ -144,7 +147,22 @@ export default function App() {
           <Stack.Screen
             name='ResignerPage3'
             component={ResignerPage3}
-            options={{ title: '完了' }}
+            options={{ title: 'Step 3' }}
+          />
+          <Stack.Screen
+            name='ResignerGroup1'
+            component={ResignerGroup1}
+            options={{ title: 'Step 1' }}
+          />
+          <Stack.Screen
+            name='ResignerGroup2'
+            component={ResignerGroup2}
+            options={{ title: 'Step 2' }}
+          />
+          <Stack.Screen
+            name='ResignerGroup3'
+            component={ResignerGroup3}
+            options={{ title: 'Step 3' }}
           />
         </Stack.Navigator>
       </NavigationContainer>

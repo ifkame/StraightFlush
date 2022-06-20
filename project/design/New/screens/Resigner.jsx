@@ -10,6 +10,9 @@ const Resigner = () => {
   const onPress = () => {
     navigation.navigate('ResignerPage1')
   }
+  const onPressGroup = () => {
+    navigation.navigate('ResignerGroup1')
+  }
 
   return (
     <View style={styles.screen}>
@@ -21,14 +24,14 @@ const Resigner = () => {
           <Pressable
             style={({ pressed }) =>
               pressed
-                ? [styles.buttonInnerContainer, styles.pressed]
-                : styles.buttonInnerContainer
+                ? [styles.buttonInnerContainer, styles.pressed, styles.bg1]
+                : [styles.buttonInnerContainer, styles.bg1]
             }
             onPress={onPress}
             android_ripple={{ color: '#ccc' }}
           >
             <Text style={styles.buttonText}>一般</Text>
-            <Ionicons name='person-outline' size={50} color='black' />
+            <Ionicons name='person-outline' size={50} color='white' />
           </Pressable>
         </View>
       </View>
@@ -37,14 +40,14 @@ const Resigner = () => {
           <Pressable
             style={({ pressed }) =>
               pressed
-                ? [styles.buttonInnerContainer, styles.pressed]
-                : styles.buttonInnerContainer
+                ? [styles.buttonInnerContainer, styles.pressed, , styles.bg2]
+                : [styles.buttonInnerContainer, styles.bg2]
             }
-            onPress={onPress}
+            onPress={onPressGroup}
             android_ripple={{ color: '#ccc' }}
           >
             <Text style={styles.buttonText}>経営者</Text>
-            <Fontisto name='shopping-store' size={50} color='black' />
+            <Fontisto name='shopping-store' size={50} color='white' />
           </Pressable>
         </View>
       </View>
@@ -82,7 +85,7 @@ const styles = StyleSheet.create({
     // textAlign: 'center', // Không có tính kế thừa nên ở đây ko có ý nghĩa
   },
   buttonText: {
-    color: 'black',
+    color: 'white',
     textAlign: 'center',
     fontSize: 24,
     fontWeight: 'bold',
@@ -90,5 +93,11 @@ const styles = StyleSheet.create({
   },
   pressed: {
     opacity: 0.75,
+  },
+  bg1: {
+    backgroundColor: Colors.primary,
+  },
+  bg2: {
+    backgroundColor: Colors.primary2,
   },
 })
