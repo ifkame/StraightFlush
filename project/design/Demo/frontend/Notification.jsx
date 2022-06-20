@@ -14,23 +14,14 @@ import * as TaskManager from 'expo-task-manager';           //タスクマネー
 import * as Notifications from 'expo-notifications';        //通知設定
 import * as Location from 'expo-location';                  //位置情報
 import * as ErrorRecovery from 'expo-error-recovery';       //エラー対応
-import { getMessaging, getToken } from 'firebase/messaging';   //FireBaseのメッセージ受け取り
+import firebase from 'firebase/app'                         //
 
-// Get registration token. Initially this makes a network call, once retrieved
-// subsequent calls to getToken will return from cache.
-const messaging = getMessaging();
-getToken(messaging, { vapidKey: 'BP4rH7bJiFiOpzhDmfyRgnaxpdX7GWaQRB6CJiZjSL_ETBaqlSPlti9lmEatYsViVM8LkNrL4aL6dYmds6uVKDo' }).then((currentToken) => {
-  if (currentToken) {
-    // Send the token to your server and update the UI if necessary
-    // ...
-  } else {
-    // Show permission request UI
-    console.log('No registration token available. Request permission to generate one.');
-    // ...
-  }
-}).catch((err) => {
-  console.log('An error occurred while retrieving token. ', err);
-  // ...
+const admin = require("firebase-admin");
+
+const serviceAccount = require("path/to/serviceAccountKey.json");
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount)
 });
 
 // console.log('エラー情報：', ErrorRecovery.setRecoveryProps(props))  //エラー情報表示
