@@ -13,6 +13,27 @@ import * as BackgroundFetch from 'expo-background-fetch';   //バックグラウ
 import * as TaskManager from 'expo-task-manager';           //タスクマネージャー
 import * as Notifications from 'expo-notifications';        //通知設定
 import * as Location from 'expo-location';                  //位置情報
+import * as ErrorRecovery from 'expo-error-recovery';       //エラー対応
+import { getMessaging, getToken } from 'firebase/messaging';   //FireBaseのメッセージ受け取り
+
+// Get registration token. Initially this makes a network call, once retrieved
+// subsequent calls to getToken will return from cache.
+const messaging = getMessaging();
+getToken(messaging, { vapidKey: 'BP4rH7bJiFiOpzhDmfyRgnaxpdX7GWaQRB6CJiZjSL_ETBaqlSPlti9lmEatYsViVM8LkNrL4aL6dYmds6uVKDo' }).then((currentToken) => {
+  if (currentToken) {
+    // Send the token to your server and update the UI if necessary
+    // ...
+  } else {
+    // Show permission request UI
+    console.log('No registration token available. Request permission to generate one.');
+    // ...
+  }
+}).catch((err) => {
+  console.log('An error occurred while retrieving token. ', err);
+  // ...
+});
+
+// console.log('エラー情報：', ErrorRecovery.setRecoveryProps(props))  //エラー情報表示
 
 //タスク名
 const BACKGROUND_FETCH_TASK = 'background-notification';  //バックグラウンドの通知タスク
@@ -48,11 +69,11 @@ TaskManager.defineTask(BACKGROUND_FETCH_TASK, async () => {
      *  迅速な応答が期待でき、高精度が必要ない場合は、
      *  Location.getLastKnownPositionAsyncの使用を検討してください。
      */
-    let location = Location.getCurrentPositionAsync({});
-    console.log(location);
+    // let location = Location.getCurrentPositionAsync({});
+    // console.log(location);
 
-    let notice = schedulePushNotification();  //通知送信
-    console.log(notice);
+    // let notice = schedulePushNotification();  //通知送信
+    // console.log(notice);
 
     // 必ず成功した結果タイプを返してください！
     // BackgroundFetch.BackgroundFetchResult.NewData=2：新しいデータが正常にダウンロードされました
