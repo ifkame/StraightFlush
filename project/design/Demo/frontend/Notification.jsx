@@ -40,6 +40,7 @@ TaskManager.defineTask(taskName, taskExecutor)：
 TaskManager.defineTask(BACKGROUND_FETCH_TASK, async () => {
     const now = Date.now();
 
+    
     console.log(`Got background fetch call at date: ${new Date(now).toISOString()}`);
 
     /** Location.getCurrentPositionAsync({})
@@ -54,7 +55,10 @@ TaskManager.defineTask(BACKGROUND_FETCH_TASK, async () => {
     // let location = Location.getCurrentPositionAsync({});
     // console.log(location);
 
-    let notice = schedulePushNotification();  //通知送信
+    // let fcm_notice = FCMPushNotification();     //FCM送信
+    // console.log(fcm_notice);
+
+    let notice = schedulePushNotification();    //通知送信
     console.log(notice);
 
     // 必ず成功した結果タイプを返してください！
@@ -253,6 +257,32 @@ async function schedulePushNotification() {
                 data: { data: 'goes here' },
             },
             trigger: { seconds: 2 },
+        })
+    );
+}
+
+async function FCMPushNotification() {
+    return(
+        await fetch('https://fcm.googleapis.com/fcm/send', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                // Authorization: `key=<FCM-SERVER-KEY>`,
+                Authorization: `key=c8c478427442bc2e8922100cadcc271c7a6f47bf`,
+            },
+            body: JSON.stringify({
+                // to: '<NATIVE-DEVICE-PUSH-TOKEN>',
+                to: token,
+                priority: 'normal',
+                data: {
+                    // experienceId: '@yourExpoUsername/yourProjectSlug',
+                    experienceId: '@Demo/Demo',
+                    // scopeKey: '@yourExpoUsername/yourProjectSlug',
+                    scopeKey: '@Demo/Demo',
+                    title: "\uD83D\uDCE7 You've got mail",
+                    message: 'Hello world! \uD83C\uDF10',
+                },
+            }),
         })
     );
 }
