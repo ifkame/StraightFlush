@@ -47,15 +47,6 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    },
-    "client": [
-      {
-        "api_key": [
-          {
-            "current_key": "BP4rH7bJiFiOpzhDmfyRgnaxpdX7GWaQRB6CJiZjSL_ETBaqlSPlti9lmEatYsViVM8LkNrL4aL6dYmds6uVKDo"
-          }
-        ]
-      }
-    ]
+    }
   }
 }

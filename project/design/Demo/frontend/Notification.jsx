@@ -14,15 +14,6 @@ import * as TaskManager from 'expo-task-manager';           //タスクマネー
 import * as Notifications from 'expo-notifications';        //通知設定
 import * as Location from 'expo-location';                  //位置情報
 import * as ErrorRecovery from 'expo-error-recovery';       //エラー対応
-import firebase from 'firebase/app'                         //
-
-const admin = require("firebase-admin");
-
-const serviceAccount = require("path/to/serviceAccountKey.json");
-
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount)
-});
 
 // console.log('エラー情報：', ErrorRecovery.setRecoveryProps(props))  //エラー情報表示
 
@@ -63,8 +54,8 @@ TaskManager.defineTask(BACKGROUND_FETCH_TASK, async () => {
     // let location = Location.getCurrentPositionAsync({});
     // console.log(location);
 
-    // let notice = schedulePushNotification();  //通知送信
-    // console.log(notice);
+    let notice = schedulePushNotification();  //通知送信
+    console.log(notice);
 
     // 必ず成功した結果タイプを返してください！
     // BackgroundFetch.BackgroundFetchResult.NewData=2：新しいデータが正常にダウンロードされました
@@ -279,8 +270,8 @@ async function registerForPushNotificationsAsync() {
             alert('Failed to get push token for push notification!');
             return;
         }
-        // token = (await Notifications.getExpoPushTokenAsync()).data;
-        token = (await Notifications.getDevicePushTokenAsync()).data;
+        token = (await Notifications.getExpoPushTokenAsync()).data;
+        // token = (await Notifications.getDevicePushTokenAsync()).data;
         console.log(token);
     } else {
         alert('Must use physical device for Push Notifications');
