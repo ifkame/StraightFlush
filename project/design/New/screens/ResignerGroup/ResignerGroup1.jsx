@@ -1,4 +1,12 @@
-import { StyleSheet, Text, View, Image, TextInput } from 'react-native'
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TextInput,
+  KeyboardAvoidingView,
+  ScrollView,
+} from 'react-native'
 import React, { useState } from 'react'
 import StepIndicator from 'react-native-step-indicator'
 
@@ -31,7 +39,7 @@ const customStyles = {
   currentStepLabelColor: Colors.line,
 }
 
-const ResignerPage = () => {
+const ResignerPage1 = () => {
   const navigation = useNavigation('ResignerGroup2')
 
   const [email, SetEmail] = useState()
@@ -50,51 +58,54 @@ const ResignerPage = () => {
   }
 
   return (
-    <View style={styles.screen}>
-      <View style={styles.imageContainer}>
-        <Image source={require('../../assets/logo.png')} />
-      </View>
-      <StepIndicator
-        customStyles={customStyles}
-        currentPosition={0}
-        labels={labels}
-        stepCount={3}
-      />
-      <View style={styles.group}>
-        <View>
-          <TextInput
-            style={styles.textInput}
-            keyboardType='email-address'
-            autoCapitalize='none'
-            autoCorrect={false}
-            value={email}
-            onChangeText={emailInputHandler}
-            placeholder='メールアドレス'
+    <ScrollView style={styles.screen}>
+      <KeyboardAvoidingView style={styles.screen}>
+        <View style={styles.screen}>
+          <View style={styles.imageContainer}>
+            <Image source={require('../../assets/logo.png')} />
+          </View>
+          <StepIndicator
+            customStyles={customStyles}
+            currentPosition={0}
+            labels={labels}
+            stepCount={3}
           />
+          <View style={styles.group}>
+            <View>
+              <TextInput
+                style={styles.textInput}
+                keyboardType='email-address'
+                autoCapitalize='none'
+                autoCorrect={false}
+                value={email}
+                onChangeText={emailInputHandler}
+                placeholder='メールアドレス'
+              />
+            </View>
+            <View style={styles.inputPassword}>
+              <TextInput
+                style={styles.textInput}
+                keyboardType='default'
+                autoCorrect={false}
+                value={password}
+                onChangeText={passwordInputHandler}
+                placeholder='パスワード'
+                secureTextEntry={true}
+              />
+            </View>
+            <PrimaryButton onPress={onPressNext}>次へ</PrimaryButton>
+          </View>
         </View>
-        <View style={styles.inputPassword}>
-          <TextInput
-            style={styles.textInput}
-            keyboardType='default'
-            autoCorrect={false}
-            value={password}
-            onChangeText={passwordInputHandler}
-            placeholder='パスワード'
-            secureTextEntry={true}
-          />
-        </View>
-        <PrimaryButton onPress={onPressNext}>次へ</PrimaryButton>
-      </View>
-    </View>
+      </KeyboardAvoidingView>
+    </ScrollView>
   )
 }
 
-export default ResignerPage
+export default ResignerPage1
 
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    width: '100%',
   },
   imageContainer: {
     alignItems: 'center',

@@ -1,9 +1,18 @@
-import { StyleSheet, Text, View, Image, TextInput } from 'react-native'
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TextInput,
+  ScrollView,
+  KeyboardAvoidingView,
+} from 'react-native'
 import React, { useState } from 'react'
 import StepIndicator from 'react-native-step-indicator'
 
 import Colors from '../constants/colors'
 import PrimaryButton from '../components/PrimaryButton'
+import CustomDatePicker from '../components/CustomDatePicker'
 import { useNavigation } from '@react-navigation/native'
 
 const labels = ['Step 1', 'Step 2', 'Step 3']
@@ -50,42 +59,49 @@ const ResignerPage = () => {
   }
 
   return (
-    <View style={styles.screen}>
-      <View style={styles.imageContainer}>
-        <Image source={require('../assets/logo.png')} />
-      </View>
-      <StepIndicator
-        customStyles={customStyles}
-        currentPosition={1}
-        labels={labels}
-        stepCount={3}
-      />
-      <View style={styles.group}>
-        <View>
-          <TextInput
-            style={styles.textInput}
-            keyboardType='email-address'
-            autoCapitalize='none'
-            autoCorrect={false}
-            value={email}
-            onChangeText={emailInputHandler}
-            placeholder='生年月日'
+    <ScrollView style={styles.screen}>
+      <KeyboardAvoidingView style={styles.screen}>
+        <View style={styles.screen}>
+          <View style={styles.imageContainer}>
+            <Image source={require('../assets/logo.png')} />
+          </View>
+          <StepIndicator
+            customStyles={customStyles}
+            currentPosition={1}
+            labels={labels}
+            stepCount={3}
           />
+          <View style={styles.group}>
+            <View>
+              <Text style={styles.textLabel}>生年月日</Text>
+              <CustomDatePicker
+                textStyle={{
+                  paddingVertical: 15,
+                  paddingHorizontal: 10,
+                  borderColor: 'gray',
+                  borderWidth: 1,
+                }}
+                defaultDate={'1994-01-10'}
+                onDateChange={(value) => console.log('Date changed ' + value)}
+              />
+            </View>
+
+            <View style={styles.inputPassword}>
+              <TextInput
+                style={styles.textInput}
+                keyboardType='default'
+                autoCorrect={false}
+                value={password}
+                onChangeText={passwordInputHandler}
+                placeholder='性別'
+                // secureTextEntry={true}
+              />
+            </View>
+            <PrimaryButton onPress={onPressNext}>次へ</PrimaryButton>
+          </View>
         </View>
-        <View style={styles.inputPassword}>
-          <TextInput
-            style={styles.textInput}
-            keyboardType='default'
-            autoCorrect={false}
-            value={password}
-            onChangeText={passwordInputHandler}
-            placeholder='性別'
-            // secureTextEntry={true}
-          />
-        </View>
-        <PrimaryButton onPress={onPressNext}>次へ</PrimaryButton>
-      </View>
-    </View>
+      </KeyboardAvoidingView>
+    </ScrollView>
   )
 }
 
@@ -108,7 +124,7 @@ const styles = StyleSheet.create({
   },
   textInput: {
     height: 40,
-    width: 250,
+    width: 280,
     fontSize: 16,
     borderBottomColor: '#ccc',
     borderBottomWidth: 1,
@@ -117,5 +133,8 @@ const styles = StyleSheet.create({
   },
   inputPassword: {
     marginBottom: 20,
+  },
+  textLabel: {
+    fontSize: 16,
   },
 })

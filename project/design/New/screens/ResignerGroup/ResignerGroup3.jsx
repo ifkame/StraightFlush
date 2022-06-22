@@ -95,7 +95,6 @@ export default ResignerPage
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    width: '100%',
   },
   imageContainer: {
     alignItems: 'center',
