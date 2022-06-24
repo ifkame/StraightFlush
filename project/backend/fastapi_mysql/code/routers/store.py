@@ -3,13 +3,11 @@
 FastAPIのサブインスタンスを使っエンドポイントを実装しているファイル 
 '''
 # FastAPIからRouterインスタンスインポート
-from ast import Store
-from turtle import st
-from unicodedata import name
 
 
 
 from fastapi import APIRouter
+from fastapi import HTTPException
 
 # dbモジュールインポート
 from db import models as dm
@@ -24,7 +22,15 @@ router = APIRouter()
 ############ エンドポイントの実装 ############
 @router.get("/stores/",tags=["stores"])
 def read_store():
-    store=ds.Session.query(dm.Store.name).all()
+    st = dm.Store()
+    store = st.query.all()
     return store
 
-
+#  IDと一致する店舗の取得
+@router.get("/stores/{store_id}",tags=["stores"])
+def read_store(id: int):
+    store = ds.Session.query(dm.Store).\
+        filter(dm.Store.store_id == id).first()
+    if(store == None ):
+        raise HTTPException(status_code=404, detail="指定されたIDの店舗は存在しません")
+    return store
