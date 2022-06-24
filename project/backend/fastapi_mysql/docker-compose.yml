@@ -1,0 +1,41 @@
+version: "3.3"
+
+services:
+  # MySQL用コンテナ
+  db:
+    container_name: "straight_flush_db"
+    # MySQL用に定義したDockerfile読み込み
+    build: ./docker/mysql
+    # コンテナが落ちたら再起動する
+    restart: always
+    tty: true
+    environment:
+      MYSQL_DATABASE: straight_flush # DB名
+      MYSQL_USER: db_user # 一般ユーザー
+      MYSQL_PASSWORD: ecc # 一般ユーザのパスワード
+      MYSQL_ROOT_PASSWORD: ecc # ルートパスワード
+    ports:
+      - "3308:3306"
+    volumes:
+      - ./docker/mysql/initdb.d:/docker-entrypoint-initdb.d # 初期データ読み込み
+      - ./docker/mysql/conf.d:/etc/mysql/conf.d # MySQLの設定ファイル読み込み
+      - ./log/mysql:/var/log/mysql # ログの保存
+    networks:
+      - local-net
+
+  # FastAPI
+  api:
+    container_name: "straight_flush_api"
+    # FastAPI用に定義したDockerfile読み込み
+    build: ./docker/api
+    ports:
+      - "8888:8000"
+    volumes:
+      - ./code:/usr/src/server
+    networks:
+      - local-net
+
+# コンテナ間で通信を行うためのネットワークブリッジ
+networks:
+  local-net:
+    driver: bridge
