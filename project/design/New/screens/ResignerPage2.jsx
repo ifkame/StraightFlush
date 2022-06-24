@@ -6,13 +6,17 @@ import {
   TextInput,
   ScrollView,
   KeyboardAvoidingView,
+  Platform,
+  Modal,
 } from 'react-native'
 import React, { useState } from 'react'
 import StepIndicator from 'react-native-step-indicator'
+import CustomDatePicker from '../components/CustomDatePicker'
+import { Picker } from '@react-native-picker/picker'
 
 import Colors from '../constants/colors'
 import PrimaryButton from '../components/PrimaryButton'
-import CustomDatePicker from '../components/CustomDatePicker'
+
 import { useNavigation } from '@react-navigation/native'
 
 const labels = ['Step 1', 'Step 2', 'Step 3']
@@ -41,18 +45,10 @@ const customStyles = {
 }
 
 const ResignerPage = () => {
+  const [show, setShow] = useState(false)
+  const [gender, setGender] = useState('男性')
+
   const navigation = useNavigation('ResignerPage3')
-
-  const [email, SetEmail] = useState()
-  const [password, setPassword] = useState()
-
-  const emailInputHandler = (enterText) => {
-    SetEmail(enterText)
-  }
-
-  const passwordInputHandler = (enterText) => {
-    setPassword(enterText)
-  }
 
   const onPressNext = () => {
     navigation.navigate('ResignerPage3')
@@ -76,26 +72,35 @@ const ResignerPage = () => {
               <Text style={styles.textLabel}>生年月日</Text>
               <CustomDatePicker
                 textStyle={{
-                  paddingVertical: 15,
-                  paddingHorizontal: 10,
-                  borderColor: 'gray',
-                  borderWidth: 1,
+                  // paddingVertical: 15,
+                  // paddingHorizontal: 10,
+                  // padding: 30,
+                  backgroundColor: '#fff',
                 }}
                 defaultDate={'1994-01-10'}
                 onDateChange={(value) => console.log('Date changed ' + value)}
               />
             </View>
 
-            <View style={styles.inputPassword}>
-              <TextInput
-                style={styles.textInput}
-                keyboardType='default'
-                autoCorrect={false}
-                value={password}
-                onChangeText={passwordInputHandler}
-                placeholder='性別'
-                // secureTextEntry={true}
-              />
+            <View>
+              <Text style={styles.textLabel}>性別</Text>
+              {/* <Modal
+                visible={true}
+                transparent={true}
+                onRequestClose={() => setShow(!show)}
+                animationType='slide'
+              >
+                <View style={styles.modal}></View>
+                <Picker
+                  selectedValue={gender}
+                  onValueChange={(value, index) => setGender(value)}
+                  mode='dialog'
+                  style={styles.picker}
+                >
+                  <Picker.Item label='男性' value='男性' />
+                  <Picker.Item label='女性' value='女性' />
+                </Picker>
+              </Modal> */}
             </View>
             <PrimaryButton onPress={onPressNext}>次へ</PrimaryButton>
           </View>
@@ -136,5 +141,27 @@ const styles = StyleSheet.create({
   },
   textLabel: {
     fontSize: 16,
+    fontWeight: 'bold',
+    marginVertical: 10,
+  },
+  picker: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    width: 300,
+    height: 50,
+    borderWidth: 1,
+    borderColor: '#fff',
+    color: '#000',
+    backgroundColor: '#fff',
+  },
+
+  modal: {
+    backgroundColor: '#fff',
+    bottom: 20,
+    left: 20,
+    right: 20,
+    position: 'absolute',
   },
 })

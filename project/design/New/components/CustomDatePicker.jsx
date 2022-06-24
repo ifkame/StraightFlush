@@ -11,7 +11,7 @@ import React, { useState } from 'react'
 
 import DateTimePicker from '@react-native-community/datetimepicker'
 import moment from 'moment'
-import { MaterialIcons } from '@expo/vector-icons'
+import { AntDesign } from '@expo/vector-icons'
 
 const CustomDatePicker = (props) => {
   const { textStyle, defaultDate } = props
@@ -77,32 +77,17 @@ const CustomDatePicker = (props) => {
           >
             <View style={styles.screen}>
               <TouchableHighlight
-                style={{
-                  flex: 1,
-                  alignItems: 'flex-end',
-                  flexDirection: 'row',
-                }}
+                style={styles.modalGroup}
                 activeOpacity={1}
                 visible={show}
                 onPress={() => setShow(false)}
               >
                 <TouchableHighlight
                   underlayColor={'#FFF'}
-                  style={{
-                    flex: 1,
-                    borderTopColor: '#e9e9e9',
-                    borderTopWidth: 1,
-                  }}
+                  style={styles.screen}
                   onPress={() => console.log('datepickder click')}
                 >
-                  <View
-                    style={{
-                      backgroundColor: '#fff',
-                      height: 256,
-                      overflow: 'hidden',
-                      // width: '100%',
-                    }}
-                  >
+                  <View style={{ backgroundColor: '#fff' }}>
                     <View
                       style={{
                         marginTop: 20,
@@ -131,7 +116,7 @@ const CustomDatePicker = (props) => {
           </Modal>
         )}
       </View>
-      <MaterialIcons name='keyboard-arrow-down' size={24} color='black' />
+      <AntDesign name='caretdown' size={9} color='#888' style={styles.arrow} />
     </Pressable>
   )
 }
@@ -152,15 +137,14 @@ const styles = StyleSheet.create({
   box: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    width: 280,
+    width: 300,
     paddingVertical: 10,
-    borderColor: 'gray',
-    borderBottomWidth: 1,
+    backgroundColor: '#fff',
   },
   btnText: {
     position: 'absolute',
     top: 0,
-    height: 42,
+    height: 50,
     paddingHorizontal: 20,
     flexDirection: 'row',
     justifyContent: 'center',
@@ -174,5 +158,16 @@ const styles = StyleSheet.create({
   },
   textDate: {
     fontSize: 16,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+  },
+  modalGroup: {
+    flex: 1,
+    alignItems: 'flex-end',
+    flexDirection: 'row',
+  },
+  arrow: {
+    paddingRight: 18,
+    paddingTop: 10,
   },
 })
