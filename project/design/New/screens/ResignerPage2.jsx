@@ -46,7 +46,7 @@ const customStyles = {
 
 const ResignerPage = () => {
   const [show, setShow] = useState(false)
-  const [gender, setGender] = useState('男性')
+  const [gender, setGender] = useState('女性')
 
   const navigation = useNavigation('ResignerPage3')
 
@@ -72,9 +72,6 @@ const ResignerPage = () => {
               <Text style={styles.textLabel}>生年月日</Text>
               <CustomDatePicker
                 textStyle={{
-                  // paddingVertical: 15,
-                  // paddingHorizontal: 10,
-                  // padding: 30,
                   backgroundColor: '#fff',
                 }}
                 defaultDate={'1994-01-10'}
@@ -82,25 +79,18 @@ const ResignerPage = () => {
               />
             </View>
 
-            <View>
+            <View style={styles.mb}>
               <Text style={styles.textLabel}>性別</Text>
-              {/* <Modal
-                visible={true}
-                transparent={true}
-                onRequestClose={() => setShow(!show)}
-                animationType='slide'
+              <Picker
+                selectedValue={gender}
+                onValueChange={(value, index) => setGender(value)}
+                mode='dialog'
+                style={Platform.OS !== 'ios' ? styles.picker : styles.pickerIOS}
               >
-                <View style={styles.modal}></View>
-                <Picker
-                  selectedValue={gender}
-                  onValueChange={(value, index) => setGender(value)}
-                  mode='dialog'
-                  style={styles.picker}
-                >
-                  <Picker.Item label='男性' value='男性' />
-                  <Picker.Item label='女性' value='女性' />
-                </Picker>
-              </Modal> */}
+                <Picker.Item label='男性' value='男性' />
+                <Picker.Item label='女性' value='女性' />
+                <Picker.Item label='その他' value='その他' />
+              </Picker>
             </View>
             <PrimaryButton onPress={onPressNext}>次へ</PrimaryButton>
           </View>
@@ -136,19 +126,13 @@ const styles = StyleSheet.create({
     color: 'black',
     marginVertical: 8,
   },
-  inputPassword: {
-    marginBottom: 20,
-  },
+
   textLabel: {
     fontSize: 16,
     fontWeight: 'bold',
     marginVertical: 10,
   },
   picker: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
     width: 300,
     height: 50,
     borderWidth: 1,
@@ -156,12 +140,11 @@ const styles = StyleSheet.create({
     color: '#000',
     backgroundColor: '#fff',
   },
-
-  modal: {
-    backgroundColor: '#fff',
-    bottom: 20,
-    left: 20,
-    right: 20,
-    position: 'absolute',
+  pickerIOS: {
+    width: 300,
+    height: 200,
+  },
+  mb: {
+    marginBottom: Platform.OS === 'ios' ? 0 : 30,
   },
 })

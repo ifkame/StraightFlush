@@ -1,16 +1,14 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
-import MapsProcess from '../frontend/MapsProcess'
-
-const Maps = () => {
+const MapsProcess = () => {
   return (
     <View>
-      <MapsProcess />
+      <Text>MapsProcess</Text>
     </View>
   )
 }
 
-export default Maps
+export default MapsProcess
 
 const styles = StyleSheet.create({})
