@@ -16,8 +16,7 @@ import Colors from '../constants/colors'
 import PrimaryButton from '../components/PrimaryButton'
 
 import { useNavigation } from '@react-navigation/native'
-import { Picker, RNPickerSelect } from '@react-native-picker/picker'
-import { Modal } from 'react-native-web'
+import { Picker } from '@react-native-picker/picker'
 
 const labels = ['Step 1', 'Step 2', 'Step 3']
 const customStyles = {
@@ -45,18 +44,14 @@ const customStyles = {
 }
 
 const ResignerPage3 = () => {
-  const [show, setShow] = useState(false)
-  const [modalVisible, setModalVisible] = useState(false)
-  const [range, setRange] = useState('５０m')
   const [frequency, setFrequency] = useState('３０分間')
+  const [range, setRange] = useState('５０m')
 
   const navigation = useNavigation()
 
   const onPressNext = () => {
     navigation.navigate('Login')
   }
-
-  //Function PICKER
 
   return (
     <ScrollView style={styles.screen}>
@@ -74,43 +69,24 @@ const ResignerPage3 = () => {
           <View style={styles.group}>
             <View>
               <Text style={styles.textLabel}>再通知期間</Text>
-              {Platform.OS !== 'ios' ? (
-                <Picker
-                  selectedValue={frequency}
-                  onValueChange={(value, index) => setFrequency(value)}
-                  mode='dialog'
-                  style={
-                    Platform.OS !== 'ios' ? styles.picker : styles.pickerIOS
-                  }
-                >
-                  <Picker.Item label='３０分間' value='３０分間' />
-                  <Picker.Item label='１時間' value='１時間' />
-                  <Picker.Item label='２時間' value='２時間' />
-                </Picker>
-              ) : (
-                <Pressable
-                  onPress={() => {
-                    setModalVisible(true)
-                    console.log(modalVisible)
-                    setShow(true)
-                  }}
-                >
-                  <View
-                    style={{ width: 300, height: 50, backgroundColor: '#fff' }}
-                  >
-                    <Text>{frequency}</Text>
-                  </View>
-                </Pressable>
-              )}
+              <Picker
+                selectedValue={frequency}
+                onValueChange={(value, index) => setFrequency(value)}
+                mode='dialog'
+                style={Platform.OS !== 'ios' ? styles.picker : styles.pickerIOS}
+              >
+                <Picker.Item label='３０分間' value='３０分間' />
+                <Picker.Item label='１時間' value='１時間' />
+                <Picker.Item label='２時間' value='２時間' />
+              </Picker>
             </View>
             <View>
               <Text style={styles.textLabel}>通知範囲</Text>
-
               <Picker
                 selectedValue={range}
                 onValueChange={(value, index) => setRange(value)}
                 mode='dialog'
-                style={Platform.OS !== 'ios' ? styles.picker : styles.pickers}
+                style={Platform.OS !== 'ios' ? styles.picker : styles.pickerIOS}
               >
                 <Picker.Item label='５０m' value='５０m' />
                 <Picker.Item label='１００m' value='１００m' />
@@ -118,30 +94,6 @@ const ResignerPage3 = () => {
               </Picker>
             </View>
             <PrimaryButton onPress={onPressNext}>次へ</PrimaryButton>
-            {modalVisible && Platform.OS === 'ios' && (
-              <Modal
-                // transparent={true}
-                animationType='slide'
-                visible={show}
-                onRequestClose={() => setShow(false)}
-              >
-                <View>
-                  <Picker
-                    seleictedValue={frequency}
-                    onValueChange={(value, index) => setFrequency(value)}
-                    mode='dialog'
-                    style={
-                      Platform.OS !== 'ios' ? styles.picker : styles.pickerIOS
-                    }
-                  >
-                    <Picker.Item label='３０分間' value='３０分間' />
-                    <Picker.Item label='１時間' value='１時間' />
-                    <Picker.Item label='２時間' value='２時間' />
-                  </Picker>
-                  <Text>AVC</Text>
-                </View>
-              </Modal>
-            )}
           </View>
         </View>
       </KeyboardAvoidingView>
