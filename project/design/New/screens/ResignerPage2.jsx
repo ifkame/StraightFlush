@@ -3,19 +3,22 @@ import {
   Text,
   View,
   Image,
-  TextInput,
   ScrollView,
   KeyboardAvoidingView,
   Platform,
-  Modal,
+  Pressable,
 } from 'react-native'
 import React, { useState } from 'react'
 import StepIndicator from 'react-native-step-indicator'
+
 import CustomDatePicker from '../components/CustomDatePicker'
 import { Picker } from '@react-native-picker/picker'
+import CustomPicker from '../components/CustomPicker'
 
 import Colors from '../constants/colors'
 import PrimaryButton from '../components/PrimaryButton'
+import { AntDesign } from '@expo/vector-icons'
+import { sexual } from '../constants/data'
 
 import { useNavigation } from '@react-navigation/native'
 
@@ -81,19 +84,40 @@ const ResignerPage = () => {
 
             <View style={styles.mb}>
               <Text style={styles.textLabel}>性別</Text>
-              <Picker
-                selectedValue={gender}
-                onValueChange={(value, index) => setGender(value)}
-                mode='dialog'
-                style={Platform.OS !== 'ios' ? styles.picker : styles.pickerIOS}
-              >
-                <Picker.Item label='男性' value='男性' />
-                <Picker.Item label='女性' value='女性' />
-                <Picker.Item label='その他' value='その他' />
-              </Picker>
+              {Platform.OS !== 'ios' ? (
+                <Picker
+                  selectedValue={gender}
+                  onValueChange={(value, index) => setGender(value)}
+                  mode='dialog'
+                  style={
+                    Platform.OS !== 'ios' ? styles.picker : styles.pickerIOS
+                  }
+                >
+                  <Picker.Item label='男性' value='男性' />
+                  <Picker.Item label='女性' value='女性' />
+                  <Picker.Item label='その他' value='その他' />
+                </Picker>
+              ) : (
+                <Pressable
+                  onPress={() => setShow(true)}
+                  style={styles.inputView}
+                >
+                  <Text style={styles.inputText}>{gender}</Text>
+                  <AntDesign name='caretdown' size={12} color='#888' />
+                </Pressable>
+              )}
             </View>
             <PrimaryButton onPress={onPressNext}>次へ</PrimaryButton>
           </View>
+          {show && Platform.OS === 'ios' && (
+            <CustomPicker
+              setShowModal={setShow}
+              showModal={show}
+              value={gender}
+              setValue={setGender}
+              items={sexual}
+            />
+          )}
         </View>
       </KeyboardAvoidingView>
     </ScrollView>
@@ -117,15 +141,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 50,
   },
-  textInput: {
-    height: 40,
-    width: 280,
-    fontSize: 16,
-    borderBottomColor: '#ccc',
-    borderBottomWidth: 1,
-    color: 'black',
-    marginVertical: 8,
-  },
 
   textLabel: {
     fontSize: 16,
@@ -146,5 +161,20 @@ const styles = StyleSheet.create({
   },
   mb: {
     marginBottom: Platform.OS === 'ios' ? 0 : 30,
+  },
+  inputView: {
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flexDirection: 'row',
+    width: 300,
+    height: 50,
+    backgroundColor: '#fff',
+    padding: 10,
+  },
+  inputText: { fontSize: 16 },
+  textIos: {
+    color: Colors.primary,
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 })
