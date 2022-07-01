@@ -9,7 +9,7 @@ CREATE TABLE users(
     UNIQUE(fcm_token)
 );
 
--- 店舗 -- 緯度経度が複合ユニークになっていたので別々にしました
+-- 店舗 緯度経度が複合ユニークになっていたので別々にしました
 CREATE TABLE stores(
      store_id INT AUTO_INCREMENT,
      name VARCHAR(30) NOT NULL,
