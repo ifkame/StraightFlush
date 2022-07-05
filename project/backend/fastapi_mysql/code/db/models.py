@@ -3,12 +3,15 @@
 ORM用のモデルの定義ファイル 
 '''
 # SQLAlchemyから使用する型をインポート 
-from ast import Store
+from datetime import date
+from email.headerregistry import UniqueAddressHeader
 from enum import unique
-from time import time
-from unicodedata import name
-from sqlalchemy import Column, Integer, String,Time,Float,Date
-from sqlalchemy.schema import UniqueConstraint
+from sqlite3 import Timestamp
+import string
+# from sqlite3 import Time
+from tokenize import Double
+from xmlrpc.client import Boolean
+from sqlalchemy import Column, ForeignKey, Integer, String, Time, Float, Date, DateTime, Boolean
 # データバリデーション用にpydanticインポート
 from pydantic import BaseModel
 # ORM設定ファイルインポート
@@ -22,18 +25,61 @@ class User(ds.Base):
     fcm_token = Column(String(256), nullable=False,unique=True)
     mail = Column(String(50), nullable=False,unique=True)
     password = Column(String(64), nullable=True)
-    point = Column(Integer , default=0,nullable=False)
+    point = Column(Integer , default=0)
 
 class Store(ds.Base):
     __tablename__ = 'stores'
-    __table_args__ = (UniqueConstraint('latitude','longitude'),{})
-    store_id = Column(Integer,primary_key=True, autoincrement=True)
+    store_id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String(30), nullable=False)
-    start_at =  Column(Time, nullable=False)
+    start_at = Column(Time, nullable=False)
     end_at = Column(Time, nullable=False)
-    address = Column(String(50), nullable=False)
-    content = Column(String(300), nullable=True)
-    qr_path = Column(String(50), nullable=False,unique=True)
-    latitude = Column(Float, nullable=False)
-    longitude = Column(Float, nullable=False)
+    address = Column(String(30), nullable=False)
+    content = Column(String(300))
+    qr_path = Column(String(50), nullable=False, unique=True)
+    latitude = Column(Float, nullable=False, unique=True)
+    longitude = Column(Float, nullable=False, unique=True)
     opening_at = Column(Date, nullable=False)
+
+class Product(ds.Base):
+    __tablename__ = 'products'
+    product_id = Column(Integer, primary_key=True, autoincrement=True)
+    store_id = Column(Integer, ForeignKey('stores.store_id'), nullable=False)
+    name = Column(String(30), nullable=False)
+    img_path = Column(String(50), nullable=False, unique=True)
+
+class Event(ds.Base):
+    __tablename__ = 'events'
+    event_id = Column(Integer, primary_key=True, autoincrement=True)
+    name = Column(String(256), nullable=False)
+    start_at = Column(DateTime, nullable=False)
+    end_at = Column(DateTime)
+    func_name = Column(String(30), nullable=False)
+    point =  Column(Integer,nullable=False)
+
+class Event_log(ds.Base):
+    __tablename__ = 'event_logs'
+    user_id = Column(Integer,  ForeignKey('users.user_id'), primary_key=True, nullable=False)
+    event_id = Column(Integer, ForeignKey('events.event_id'), nullable=True)
+    created_at = Column(DateTime, nullable=False)
+
+class Stamp(ds.Base):
+    __tablename__ = 'stamps'
+    user_id = Column(Integer,  ForeignKey('users.user_id'), primary_key=True, nullable=False)
+    img_path = Column(String(50),  unique=True)
+    created_at = Column(DateTime, nullable=False)
+
+class Notice_log(ds.Base):
+    __tablename__ = 'notice_logs'
+    notice_id = Column(Integer,  primary_key=True, autoincrement=True)
+    user_id = Column(Integer,  ForeignKey('users.user_id'), nullable=False)
+    store_id = Column(Integer,  ForeignKey('stores.store_id'), nullable=False)
+    click_flg = Column(Boolean, nullable=False)
+    created_at = Column(DateTime, nullable=False)
+
+class Payment_log(ds.Base):
+    __tablename__ = 'payment_logs'
+    payment_id = Column(Integer,  primary_key=True, autoincrement=True)
+    user_id = Column(Integer,  ForeignKey('users.user_id'), nullable=False)
+    store_id = Column(Integer,  ForeignKey('stores.store_id'), nullable=False)
+    user_point = (Integer)
+    created_at = Column(DateTime, nullable=False)

@@ -47,7 +47,7 @@ Session = scoped_session(
 
 # modelで使用する変数
 Base = declarative_base()
-# 予めテーブル定義の継承元クラスにqueryプロパティを仕込んでおく
+# 
 Base.query = Session.query_property()
 
 
