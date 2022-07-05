@@ -3,19 +3,22 @@ import {
   Text,
   View,
   Image,
-  TextInput,
   ScrollView,
   KeyboardAvoidingView,
   Platform,
-  Modal,
+  Pressable,
 } from 'react-native'
 import React, { useState } from 'react'
 import StepIndicator from 'react-native-step-indicator'
+
 import CustomDatePicker from '../components/CustomDatePicker'
 import { Picker } from '@react-native-picker/picker'
+import CustomPicker from '../components/CustomPicker'
 
 import Colors from '../constants/colors'
 import PrimaryButton from '../components/PrimaryButton'
+import { AntDesign } from '@expo/vector-icons'
+import { sexual } from '../constants/data'
 
 import { useNavigation } from '@react-navigation/native'
 
@@ -46,7 +49,7 @@ const customStyles = {
 
 const ResignerPage = () => {
   const [show, setShow] = useState(false)
-  const [gender, setGender] = useState('男性')
+  const [gender, setGender] = useState('女性')
 
   const navigation = useNavigation('ResignerPage3')
 
@@ -72,9 +75,6 @@ const ResignerPage = () => {
               <Text style={styles.textLabel}>生年月日</Text>
               <CustomDatePicker
                 textStyle={{
-                  // paddingVertical: 15,
-                  // paddingHorizontal: 10,
-                  // padding: 30,
                   backgroundColor: '#fff',
                 }}
                 defaultDate={'1994-01-10'}
@@ -82,28 +82,42 @@ const ResignerPage = () => {
               />
             </View>
 
-            <View>
+            <View style={styles.mb}>
               <Text style={styles.textLabel}>性別</Text>
-              {/* <Modal
-                visible={true}
-                transparent={true}
-                onRequestClose={() => setShow(!show)}
-                animationType='slide'
-              >
-                <View style={styles.modal}></View>
+              {Platform.OS !== 'ios' ? (
                 <Picker
                   selectedValue={gender}
                   onValueChange={(value, index) => setGender(value)}
                   mode='dialog'
-                  style={styles.picker}
+                  style={
+                    Platform.OS !== 'ios' ? styles.picker : styles.pickerIOS
+                  }
                 >
                   <Picker.Item label='男性' value='男性' />
                   <Picker.Item label='女性' value='女性' />
+                  <Picker.Item label='その他' value='その他' />
                 </Picker>
-              </Modal> */}
+              ) : (
+                <Pressable
+                  onPress={() => setShow(true)}
+                  style={styles.inputView}
+                >
+                  <Text style={styles.inputText}>{gender}</Text>
+                  <AntDesign name='caretdown' size={12} color='#888' />
+                </Pressable>
+              )}
             </View>
             <PrimaryButton onPress={onPressNext}>次へ</PrimaryButton>
           </View>
+          {show && Platform.OS === 'ios' && (
+            <CustomPicker
+              setShowModal={setShow}
+              showModal={show}
+              value={gender}
+              setValue={setGender}
+              items={sexual}
+            />
+          )}
         </View>
       </KeyboardAvoidingView>
     </ScrollView>
@@ -127,28 +141,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 50,
   },
-  textInput: {
-    height: 40,
-    width: 280,
-    fontSize: 16,
-    borderBottomColor: '#ccc',
-    borderBottomWidth: 1,
-    color: 'black',
-    marginVertical: 8,
-  },
-  inputPassword: {
-    marginBottom: 20,
-  },
+
   textLabel: {
     fontSize: 16,
     fontWeight: 'bold',
     marginVertical: 10,
   },
   picker: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
     width: 300,
     height: 50,
     borderWidth: 1,
@@ -156,12 +155,26 @@ const styles = StyleSheet.create({
     color: '#000',
     backgroundColor: '#fff',
   },
-
-  modal: {
+  pickerIOS: {
+    width: 300,
+    height: 200,
+  },
+  mb: {
+    marginBottom: Platform.OS === 'ios' ? 0 : 30,
+  },
+  inputView: {
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flexDirection: 'row',
+    width: 300,
+    height: 50,
     backgroundColor: '#fff',
-    bottom: 20,
-    left: 20,
-    right: 20,
-    position: 'absolute',
+    padding: 10,
+  },
+  inputText: { fontSize: 16 },
+  textIos: {
+    color: Colors.primary,
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 })

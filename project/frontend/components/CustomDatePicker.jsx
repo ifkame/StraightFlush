@@ -12,6 +12,7 @@ import React, { useState } from 'react'
 import DateTimePicker from '@react-native-community/datetimepicker'
 import moment from 'moment'
 import { AntDesign } from '@expo/vector-icons'
+import Colors from '../constants/colors'
 
 const CustomDatePicker = (props) => {
   const { textStyle, defaultDate } = props
@@ -77,40 +78,40 @@ const CustomDatePicker = (props) => {
           >
             <View style={styles.screen}>
               <TouchableHighlight
-                style={styles.modalGroup}
-                activeOpacity={1}
-                visible={show}
-                onPress={() => setShow(false)}
+                underlayColor={'#FFF'}
+                style={styles.pickerContainer}
               >
-                <TouchableHighlight
-                  underlayColor={'#FFF'}
-                  style={styles.screen}
-                  onPress={() => console.log('datepickder click')}
-                >
-                  <View style={{ backgroundColor: '#fff' }}>
-                    <View
+                <View style={{ backgroundColor: '#fff' }}>
+                  <View
+                    style={{
+                      marginTop: 20,
+                    }}
+                  >
+                    {renderDatePicker()}
+                  </View>
+                  <TouchableHighlight
+                    underlayColor={'transparent'}
+                    onPress={onCancelPress}
+                    style={[styles.btnText, styles.btnCancel]}
+                  >
+                    <Text style={{ fontSize: 18 }}>キャンセル</Text>
+                  </TouchableHighlight>
+                  <TouchableHighlight
+                    underlayColor={'transparent'}
+                    onPress={onDonePress}
+                    style={[styles.btnText, styles.btnDone]}
+                  >
+                    <Text
                       style={{
-                        marginTop: 20,
+                        color: Colors.primary,
+                        fontWeight: 'bold',
+                        fontSize: 18,
                       }}
                     >
-                      {renderDatePicker()}
-                    </View>
-                    <TouchableHighlight
-                      underlayColor={'transparent'}
-                      onPress={onCancelPress}
-                      style={[styles.btnText, styles.btnCancel]}
-                    >
-                      <Text>キャンセル</Text>
-                    </TouchableHighlight>
-                    <TouchableHighlight
-                      underlayColor={'transparent'}
-                      onPress={onDonePress}
-                      style={[styles.btnText, styles.btnDone]}
-                    >
-                      <Text>完了</Text>
-                    </TouchableHighlight>
-                  </View>
-                </TouchableHighlight>
+                      完了
+                    </Text>
+                  </TouchableHighlight>
+                </View>
               </TouchableHighlight>
             </View>
           </Modal>
@@ -169,5 +170,12 @@ const styles = StyleSheet.create({
   arrow: {
     paddingRight: 18,
     paddingTop: 10,
+  },
+  pickerContainer: {
+    backgroundColor: '#fff',
+    width: '100%',
+    height: '30%',
+    position: 'absolute',
+    bottom: 0,
   },
 })

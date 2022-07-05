@@ -3,7 +3,6 @@ import {
   Text,
   View,
   Image,
-  TextInput,
   ScrollView,
   KeyboardAvoidingView,
   Platform,
@@ -14,9 +13,12 @@ import StepIndicator from 'react-native-step-indicator'
 
 import Colors from '../constants/colors'
 import PrimaryButton from '../components/PrimaryButton'
+import CustomPicker from '../components/CustomPicker'
+import { time, meter } from '../constants/data'
 
 import { useNavigation } from '@react-navigation/native'
 import { Picker } from '@react-native-picker/picker'
+import { AntDesign } from '@expo/vector-icons'
 
 const labels = ['Step 1', 'Step 2', 'Step 3']
 const customStyles = {
@@ -44,13 +46,25 @@ const customStyles = {
 }
 
 const ResignerPage3 = () => {
-  const [frequency, setFrequency] = useState('３０分間')
-  const [range, setRange] = useState('５０m')
+  const [modalTop, setModalTop] = useState(false)
+  const [modalBottom, setModalBottom] = useState(false)
+
+  const [frequency, setFrequency] = useState('１時間')
+  const [range, setRange] = useState('１００m')
 
   const navigation = useNavigation()
 
   const onPressNext = () => {
     navigation.navigate('Login')
+  }
+
+  // PICKER OPEN
+  const openPicker = () => {
+    setModalTop(true)
+  }
+
+  const openPickerBottom = () => {
+    setModalBottom(true)
   }
 
   return (
@@ -69,31 +83,68 @@ const ResignerPage3 = () => {
           <View style={styles.group}>
             <View>
               <Text style={styles.textLabel}>再通知期間</Text>
-              <Picker
-                selectedValue={frequency}
-                onValueChange={(value, index) => setFrequency(value)}
-                mode='dialog'
-                style={Platform.OS !== 'ios' ? styles.picker : styles.pickerIOS}
-              >
-                <Picker.Item label='３０分間' value='３０分間' />
-                <Picker.Item label='１時間' value='１時間' />
-                <Picker.Item label='２時間' value='２時間' />
-              </Picker>
+
+              {Platform.OS !== 'ios' ? (
+                <Picker
+                  selectedValue={frequency}
+                  onValueChange={(value, index) => setFrequency(value)}
+                  mode='dialog'
+                  style={styles.picker}
+                >
+                  <Picker.Item label='３０分間' value='３０分間' />
+                  <Picker.Item label='１時間' value='１時間' />
+                  <Picker.Item label='２時間' value='２時間' />
+                </Picker>
+              ) : (
+                <Pressable onPress={openPicker} style={styles.inputView}>
+                  <Text style={styles.inputText}>{frequency}</Text>
+                  <AntDesign name='caretdown' size={12} color='#888' />
+                </Pressable>
+              )}
             </View>
             <View>
               <Text style={styles.textLabel}>通知範囲</Text>
-              <Picker
-                selectedValue={range}
-                onValueChange={(value, index) => setRange(value)}
-                mode='dialog'
-                style={Platform.OS !== 'ios' ? styles.picker : styles.pickerIOS}
-              >
-                <Picker.Item label='５０m' value='５０m' />
-                <Picker.Item label='１００m' value='１００m' />
-                <Picker.Item label='３００m' value='３００m' />
-              </Picker>
+              {Platform.OS !== 'ios' ? (
+                <Picker
+                  selectedValue={range}
+                  onValueChange={(value, index) => setRange(value)}
+                  mode='dialog'
+                  style={
+                    Platform.OS !== 'ios' ? styles.picker : styles.pickerIOS
+                  }
+                >
+                  <Picker.Item label='５０m' value='５０m' />
+                  <Picker.Item label='１００m' value='１００m' />
+                  <Picker.Item label='３００m' value='３００m' />
+                </Picker>
+              ) : (
+                <Pressable onPress={openPickerBottom} style={styles.inputView}>
+                  <Text style={styles.inputText}>{range}</Text>
+                  <AntDesign name='caretdown' size={12} color='#888' />
+                </Pressable>
+              )}
             </View>
             <PrimaryButton onPress={onPressNext}>次へ</PrimaryButton>
+
+            {modalTop && Platform.OS === 'ios' && (
+              <CustomPicker
+                setShowModal={setModalTop}
+                showModal={modalTop}
+                value={frequency}
+                setValue={setFrequency}
+                items={time}
+              />
+            )}
+
+            {modalBottom && Platform.OS === 'ios' && (
+              <CustomPicker
+                setShowModal={setModalBottom}
+                showModal={modalBottom}
+                value={range}
+                setValue={setRange}
+                items={meter}
+              />
+            )}
           </View>
         </View>
       </KeyboardAvoidingView>
@@ -135,14 +186,17 @@ const styles = StyleSheet.create({
     color: '#000',
     backgroundColor: '#fff',
   },
-  pickerIOS: {
-    flex: 1,
+
+  inputView: {
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flexDirection: 'row',
     width: 300,
-    height: 200,
-    bottom: 0,
-    left: -10,
-    position: 'relative',
+    height: 50,
+    backgroundColor: '#fff',
+    padding: 10,
   },
+  inputText: { fontSize: 16 },
   textLabel: {
     fontSize: 16,
     fontWeight: 'bold',

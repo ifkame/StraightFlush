@@ -5,6 +5,7 @@ import StepIndicator from 'react-native-step-indicator'
 import Colors from '../../constants/colors'
 
 import PrimaryButton from '../../components/PrimaryButton'
+import CustomDatePicker from '../../components/CustomDatePicker'
 import { useNavigation } from '@react-navigation/native'
 
 const labels = ['Step 1', 'Step 2', 'Step 3']
@@ -62,7 +63,8 @@ const ResignerPage = () => {
         stepCount={3}
       />
       <View style={styles.group}>
-        <View>
+        <View style={styles.viewInput}>
+          <Text style={styles.textLabel}>店舗情報</Text>
           <TextInput
             style={styles.textInput}
             keyboardType='email-address'
@@ -73,15 +75,14 @@ const ResignerPage = () => {
             placeholder='メールアドレス'
           />
         </View>
-        <View style={styles.inputPassword}>
-          <TextInput
-            style={styles.textInput}
-            keyboardType='default'
-            autoCorrect={false}
-            value={password}
-            onChangeText={passwordInputHandler}
-            placeholder='パスワード'
-            secureTextEntry={true}
+        <View style={styles.viewInput}>
+          <Text style={styles.textLabel}>開業日</Text>
+          <CustomDatePicker
+            textStyle={{
+              backgroundColor: '#fff',
+            }}
+            defaultDate={'1994-01-10'}
+            onDateChange={(value) => console.log('Date changed ' + value)}
           />
         </View>
         <PrimaryButton onPress={onPressNext}>次へ</PrimaryButton>
@@ -101,21 +102,29 @@ const styles = StyleSheet.create({
     marginBottom: 50,
     marginTop: 20,
   },
+  textInput: {
+    height: 50,
+    width: 300,
+    fontSize: 18,
+    color: 'black',
+    backgroundColor: '#fff',
+    paddingHorizontal: 10,
+  },
+  viewInput: {
+    marginBottom: 10,
+  },
   group: {
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 50,
   },
-  textInput: {
-    height: 40,
-    width: 250,
-    fontSize: 16,
-    borderBottomColor: '#ccc',
-    borderBottomWidth: 1,
-    color: 'black',
-    marginVertical: 8,
-  },
+
   inputPassword: {
     marginBottom: 20,
+  },
+  textLabel: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginVertical: 10,
   },
 })
