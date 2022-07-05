@@ -54,12 +54,12 @@ const ResignerPage1 = () => {
   }
 
   const onPressNext = () => {
-    navigation.navigate('ResignerPage2')
+    navigation.navigate('ResignerGroup2')
   }
 
   return (
     <ScrollView style={styles.screen}>
-      <KeyboardAvoidingView style={styles.screen}>
+      <KeyboardAvoidingView style={styles.screen} behavior='position'>
         <View style={styles.screen}>
           <View style={styles.imageContainer}>
             <Image source={require('../../assets/logo.png')} />
@@ -71,7 +71,8 @@ const ResignerPage1 = () => {
             stepCount={3}
           />
           <View style={styles.group}>
-            <View>
+            <View style={styles.viewInput}>
+              <Text style={styles.textLabel}>メールアドレス</Text>
               <TextInput
                 style={styles.textInput}
                 keyboardType='email-address'
@@ -83,6 +84,7 @@ const ResignerPage1 = () => {
               />
             </View>
             <View style={styles.inputPassword}>
+              <Text style={styles.textLabel}>パスワード</Text>
               <TextInput
                 style={styles.textInput}
                 keyboardType='default'
@@ -117,16 +119,23 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 50,
   },
+  viewInput: {
+    marginBottom: 10,
+  },
   textInput: {
-    height: 40,
-    width: 250,
-    fontSize: 16,
-    borderBottomColor: '#ccc',
-    borderBottomWidth: 1,
+    height: 50,
+    width: 300,
+    fontSize: 18,
     color: 'black',
-    marginVertical: 8,
+    backgroundColor: '#fff',
+    paddingHorizontal: 10,
   },
   inputPassword: {
     marginBottom: 20,
+  },
+  textLabel: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginVertical: 10,
   },
 })

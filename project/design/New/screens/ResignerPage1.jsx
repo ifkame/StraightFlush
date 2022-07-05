@@ -1,9 +1,9 @@
 import {
   StyleSheet,
-  Text,
   View,
   Image,
   TextInput,
+  Text,
   // useWindowDimensions,
   KeyboardAvoidingView,
   ScrollView,
@@ -76,7 +76,8 @@ const ResignerPage = () => {
             stepCount={3}
           />
           <View style={styles.group}>
-            <View>
+            <View style={styles.viewInput}>
+              <Text style={styles.textLabel}>メールアドレス</Text>
               <TextInput
                 style={styles.textInput}
                 keyboardType='email-address'
@@ -88,6 +89,7 @@ const ResignerPage = () => {
               />
             </View>
             <View style={styles.inputPassword}>
+              <Text style={styles.textLabel}>パスワード</Text>
               <TextInput
                 style={styles.textInput}
                 keyboardType='default'
@@ -122,16 +124,23 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 50,
   },
+  viewInput: {
+    marginBottom: 10,
+  },
   textInput: {
-    height: 40,
-    width: 250,
-    fontSize: 16,
-    borderBottomColor: '#ccc',
-    borderBottomWidth: 1,
+    height: 50,
+    width: 300,
+    fontSize: 18,
     color: 'black',
-    marginVertical: 8,
+    backgroundColor: '#fff',
+    paddingHorizontal: 10,
   },
   inputPassword: {
     marginBottom: 20,
+  },
+  textLabel: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginVertical: 10,
   },
 })

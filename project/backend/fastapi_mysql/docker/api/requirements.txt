@@ -2,5 +2,3 @@ mysqlclient
 sqlalchemy
 uvicorn
 fastapi
-geopy
-firebase-admin

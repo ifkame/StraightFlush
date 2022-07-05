@@ -10,6 +10,10 @@ import {
 import React, { useState } from 'react'
 import StepIndicator from 'react-native-step-indicator'
 
+import { Picker } from '@react-native-picker/picker'
+import CustomPicker from '../../components/CustomPicker'
+import { AntDesign } from '@expo/vector-icons'
+
 import Colors from '../../constants/colors'
 import PrimaryButton from '../../components/PrimaryButton'
 import { useNavigation } from '@react-navigation/native'
@@ -42,15 +46,14 @@ const customStyles = {
 const ResignerPage = () => {
   const navigation = useNavigation()
 
-  const [email, SetEmail] = useState()
-  const [password, setPassword] = useState()
+  const [shopName, SetShopName] = useState()
+  const [address, setAddress] = useState()
 
-  const emailInputHandler = (enterText) => {
-    SetEmail(enterText)
+  const shopInputHandler = (enterText) => {
+    SetShopName(enterText)
   }
-
-  const passwordInputHandler = (enterText) => {
-    setPassword(enterText)
+  const addressInputHandler = (enterText) => {
+    setAddress(enterText)
   }
 
   const onPressNext = () => {
@@ -72,25 +75,27 @@ const ResignerPage = () => {
           />
           <View style={styles.group}>
             <View>
-              <TextInput
-                style={styles.textInput}
-                keyboardType='email-address'
-                autoCapitalize='none'
-                autoCorrect={false}
-                value={email}
-                onChangeText={emailInputHandler}
-                placeholder='メールアドレス'
-              />
-            </View>
-            <View style={styles.inputPassword}>
+              <Text style={styles.textLabel}>店舗名</Text>
               <TextInput
                 style={styles.textInput}
                 keyboardType='default'
+                autoCapitalize='none'
                 autoCorrect={false}
-                value={password}
-                onChangeText={passwordInputHandler}
-                placeholder='パスワード'
-                secureTextEntry={true}
+                value={shopName}
+                onChangeText={shopInputHandler}
+                placeholder='店舗名'
+              />
+            </View>
+            <View>
+              <Text style={styles.textLabel}>住所</Text>
+              <TextInput
+                style={styles.textInput}
+                keyboardType='default'
+                autoCapitalize='none'
+                autoCorrect={false}
+                value={address}
+                onChangeText={addressInputHandler}
+                placeholder='住所'
               />
             </View>
             <PrimaryButton onPress={onPressNext}>次へ</PrimaryButton>
@@ -117,16 +122,21 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 50,
   },
-  textInput: {
-    height: 40,
-    width: 250,
-    fontSize: 16,
-    borderBottomColor: '#ccc',
-    borderBottomWidth: 1,
-    color: 'black',
-    marginVertical: 8,
-  },
+
   inputPassword: {
     marginBottom: 20,
+  },
+  textLabel: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginVertical: 10,
+  },
+  textInput: {
+    height: 50,
+    width: 300,
+    fontSize: 18,
+    color: 'black',
+    backgroundColor: '#fff',
+    paddingHorizontal: 10,
   },
 })
