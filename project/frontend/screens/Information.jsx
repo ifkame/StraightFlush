@@ -1,10 +1,11 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
+import InformationProcess from '../frontend/InformationProcess'
 const Information = () => {
   return (
     <View>
-      <Text>Information</Text>
+      <InformationProcess />
     </View>
   )
 }
