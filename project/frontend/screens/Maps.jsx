@@ -1,10 +1,12 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
+import MapsProcess from '../frontend/MapsProcess'
+
 const Maps = () => {
   return (
     <View>
-      <Text>Maps</Text>
+      <MapsProcess />
     </View>
   )
 }

@@ -110,7 +110,6 @@ const MapsNavigation = () => {
 export default function App() {
   return (
     <>
-      <BackGroundFunc />
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen
