@@ -1,14 +1,14 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
-const MapsProcess = () => {
+const Stamp = () => {
   return (
     <View>
-      <Text>MapsProcess</Text>
+      <Text>Stamp</Text>
     </View>
   )
 }
 
-export default MapsProcess
+export default Stamp
 
 const styles = StyleSheet.create({})
