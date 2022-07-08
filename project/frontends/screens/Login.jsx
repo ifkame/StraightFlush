@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View, Image, TextInput } from 'react-native'
 import React, { useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
+<<<<<<< HEAD
 
 import PrimaryButton from '../components/PrimaryButton'
 
@@ -9,6 +10,24 @@ const Login = () => {
 
   const [email, setEmail] = useState()
   const [password, setPassword] = useState()
+=======
+import PrimaryButton from '../components/PrimaryButton'
+import axios from 'axios'
+import { add } from 'react-native-reanimated'
+//　メールの正規表現用文字列
+var mail_regex =
+  /^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]+.[A-Za-z0-9]+$/
+const baseURL = 'http://localhost:8888/login/'
+
+const Login = () => {
+  const navigation = useNavigation()
+  const [email, setEmail] = useState()
+  const [password, setPassword] = useState()
+  const [result, setResult] = useState()
+
+  const [postalCode, setPostalCode] = useState('')
+  // const [address, setAddress] = useState('');
+>>>>>>> 0b9c9494e3444b92771411b28a12e906f1db29fc
 
   const emailInputHandler = (enterText) => {
     setEmail(enterText)
@@ -17,8 +36,78 @@ const Login = () => {
     setPassword(enterText)
   }
 
+<<<<<<< HEAD
   const onPress = () => {
     navigation.navigate('MapsNavigation')
+=======
+  // ログインAPIを叩く関数
+  const Login = async (json) => {
+    try {
+      // ユーザーの入力したmail,password(JSON形式)
+      console.log(json)
+      //　HTTTPリクエストを行い、結果を変数に格納
+      const response = await axios.post(`${baseURL}`, json, {
+        headers: { 'Content-Type': 'application/json' },
+      })
+      // HTTPレスポンスコードを変数に格納
+      const status = response.status
+      if (status == 200) {
+        // MAPページに遷移
+        navigation.navigate('MapsNavigation')
+      }
+    } catch (error) {
+      console.log(error)
+      console.log(error.response.status)
+      switch (error.response.status) {
+        case 401:
+          console.log('401エラー')
+          return error.response.data.detail
+        case 404:
+          return error.response.data.detail
+        case 500:
+          return 'サーバーエラー、管理者に問い合わせてください'
+      }
+
+      console.log(error)
+      return '通信エラー'
+    }
+  }
+
+  async function sendRequest(json) {
+    // APIを叩く関数を呼ぶ
+    const result = await Login(json)
+    setResult(result)
+    // setAddress(address);
+  }
+
+  const onPress = () => {
+    // メールの入力チェック
+    if (!email || email === '') {
+      setResult('メールアドレスを入力してください')
+      return
+      // メールの形式チェック
+    } else if (!mail_regex.test(email)) {
+      setResult('メールの形式が正しくありません。')
+      return
+      // OK
+    } else {
+      setResult('')
+    }
+    // パスワードの入力チェック
+    if (!password || password === '') {
+      setResult('パスワードを入力してください')
+      return
+      // OK
+    } else {
+      setResult('')
+      var user_obj = {
+        mail: email,
+        password: password,
+      }
+      var json = JSON.stringify(user_obj)
+      sendRequest(json)
+    }
+>>>>>>> 0b9c9494e3444b92771411b28a12e906f1db29fc
   }
 
   return (
@@ -52,6 +141,10 @@ const Login = () => {
       </View>
 
       <PrimaryButton onPress={onPress}>ログイン</PrimaryButton>
+<<<<<<< HEAD
+=======
+      <Text>{result}</Text>
+>>>>>>> 0b9c9494e3444b92771411b28a12e906f1db29fc
     </View>
   )
 }

@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
+<<<<<<< HEAD
 import Carousel from 'react-native-snap-carousel'
 
 const MyPage = () => {
@@ -46,11 +47,22 @@ const MyPage = () => {
         />
       </View>
     </>
+=======
+const MyPage = () => {
+  return (
+    <View>
+      <Text>MyPage</Text>
+    </View>
+>>>>>>> 0b9c9494e3444b92771411b28a12e906f1db29fc
   )
 }
 
 export default MyPage
 
+<<<<<<< HEAD
 const styles = StyleSheet.create({
   screen: { flex: 1 },
 })
+=======
+const styles = StyleSheet.create({})
+>>>>>>> 0b9c9494e3444b92771411b28a12e906f1db29fc

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { StyleSheet, Text, View, ScrollView, Image } from 'react-native'
 import React from 'react'
 import { FontAwesome5, Fontisto, Ionicons } from '@expo/vector-icons'
@@ -46,12 +47,22 @@ const InformationProcess = () => {
           </View>
         </View>
       </View>
+=======
+import { StyleSheet, Text, View } from 'react-native'
+import React from 'react'
+
+const InformationProcess = () => {
+  return (
+    <View>
+      <Text>InformationProcess</Text>
+>>>>>>> 0b9c9494e3444b92771411b28a12e906f1db29fc
     </View>
   )
 }
 
 export default InformationProcess
 
+<<<<<<< HEAD
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
@@ -122,3 +133,6 @@ const styles = StyleSheet.create({
     fontSize: 8,
   },
 })
+=======
+const styles = StyleSheet.create({})
+>>>>>>> 0b9c9494e3444b92771411b28a12e906f1db29fc

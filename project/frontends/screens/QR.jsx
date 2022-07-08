@@ -73,7 +73,11 @@ export default QR
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+<<<<<<< HEAD
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
+=======
+    backgroundColor: '#fff',
+>>>>>>> 0b9c9494e3444b92771411b28a12e906f1db29fc
     alignItems: 'center',
     justifyContent: 'center',
   },
