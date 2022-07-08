@@ -5,7 +5,7 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
-import { Ionicons, FontAwesome } from '@expo/vector-icons'
+import { Ionicons, FontAwesome, FontAwesome5 } from '@expo/vector-icons'
 import Colors from './constants/colors'
 
 import StartScreen from './screens/StartScreen'
@@ -22,6 +22,7 @@ import ResignerGroup1 from './screens/ResignerGroup/ResignerGroup1'
 import ResignerGroup2 from './screens/ResignerGroup/ResignerGroup2'
 import ResignerGroup3 from './screens/ResignerGroup/ResignerGroup3'
 import QR from './screens/QR'
+import Stamp from './screens/Stamp'
 
 const Stack = createNativeStackNavigator()
 const BottomTabs = createBottomTabNavigator()
@@ -62,22 +63,22 @@ const MapsNavigation = () => {
       />
       <BottomTabs.Screen
         name='QR'
-        component={QR}
+        component={Stamp}
         options={{
-          title: 'QR',
-          tabBarLabel: 'QR',
+          title: 'スタンプ',
+          tabBarLabel: 'スタンプ',
           // tabBarShowLabel: false,
           tabBarIcon: ({ size, color }) => (
-            <Ionicons name='md-qr-code-sharp' size={40} color={color} />
+            <FontAwesome5 name='stamp' size={24} color={color} />
           ),
           tabBarIconStyle: {
-            position: 'absolute',
-            top: -34,
-            height: 66,
-            width: 66,
-            backgroundColor: '#FCECCD',
-            borderRadius: 33,
-            shadowOpacity: 0.1,
+            // position: 'absolute',
+            // top: -34,
+            // height: 66,
+            // width: 66,
+            // backgroundColor: '#FCECCD',
+            // borderRadius: 33,
+            // shadowOpacity: 0.1,
           },
         }}
       />

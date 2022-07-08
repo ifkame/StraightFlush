@@ -1,11 +1,11 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
-import MapsProcess from '../frontend/MapsProcess'
+import MapsProcess from '../components/MapsProcess'
 
 const Maps = () => {
   return (
-    <View>
+    <View style={styles.srceen}>
       <MapsProcess />
     </View>
   )
@@ -13,4 +13,8 @@ const Maps = () => {
 
 export default Maps
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  srceen: {
+    flex: 1,
+  },
+})
