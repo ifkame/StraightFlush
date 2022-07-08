@@ -6,6 +6,8 @@ import Colors from '../constants/colors'
 import PrimaryButton from '../components/PrimaryButton'
 import { useNavigation } from '@react-navigation/native'
 
+import { userContext } from '../contexts/UserContext';
+
 const labels = ['Step 1', 'Step 2', '完了']
 const customStyles = {
   stepIndicatorSize: 25,
@@ -32,17 +34,15 @@ const customStyles = {
 }
 
 const ResignerPage = () => {
+  const { frequency, SetFrequency, range, SetRange } = userContext();
   const navigation = useNavigation()
 
-  const [email, SetEmail] = useState()
-  const [password, setPassword] = useState()
-
-  const emailInputHandler = (enterText) => {
-    SetEmail(enterText)
+  const frequencyInputHandler = (enterText) => {
+    SetFrequency(enterText)
   }
 
-  const passwordInputHandler = (enterText) => {
-    setPassword(enterText)
+  const rangeInputHandler = (enterText) => {
+    SetRange(enterText)
   }
 
   const onPressNext = () => {
@@ -64,21 +64,21 @@ const ResignerPage = () => {
         <View>
           <TextInput
             style={styles.textInput}
-            keyboardType='email-address'
+            keyboardType='default'
             autoCapitalize='none'
             autoCorrect={false}
-            value={email}
-            onChangeText={emailInputHandler}
+            value={frequency}
+            onChangeText={frequencyInputHandler}
             placeholder='通知頻度'
           />
         </View>
-        <View style={styles.inputPassword}>
+        <View style={styles.inputRange}>
           <TextInput
             style={styles.textInput}
             keyboardType='default'
             autoCorrect={false}
-            value={password}
-            onChangeText={passwordInputHandler}
+            value={range}
+            onChangeText={rangeInputHandler}
             placeholder='通知範囲'
             // secureTextEntry={true}
           />
@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
     color: 'black',
     marginVertical: 8,
   },
-  inputPassword: {
+  inputRange: {
     marginBottom: 20,
   },
 })

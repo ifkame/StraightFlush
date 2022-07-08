@@ -6,6 +6,8 @@ import Colors from '../constants/colors'
 import PrimaryButton from '../components/PrimaryButton'
 import { useNavigation } from '@react-navigation/native'
 
+import { userContext } from '../contexts/UserContext';
+
 const labels = ['Step 1', 'Step 2', '完了']
 const customStyles = {
   stepIndicatorSize: 25,
@@ -32,17 +34,15 @@ const customStyles = {
 }
 
 const ResignerPage = () => {
+  const { age, SetAge, gender, SetGender } = userContext();
   const navigation = useNavigation('ResignerPage3')
 
-  const [email, SetEmail] = useState()
-  const [password, setPassword] = useState()
-
-  const emailInputHandler = (enterText) => {
-    SetEmail(enterText)
+  const ageInputHandler = (enterText) => {
+    SetAge(enterText)
   }
 
-  const passwordInputHandler = (enterText) => {
-    setPassword(enterText)
+  const genderInputHandler = (enterText) => {
+    SetGender(enterText)
   }
 
   const onPressNext = () => {
@@ -64,21 +64,21 @@ const ResignerPage = () => {
         <View>
           <TextInput
             style={styles.textInput}
-            keyboardType='email-address'
+            keyboardType='default'
             autoCapitalize='none'
             autoCorrect={false}
-            value={email}
-            onChangeText={emailInputHandler}
+            value={age}
+            onChangeText={ageInputHandler}
             placeholder='生年月日'
           />
         </View>
-        <View style={styles.inputPassword}>
+        <View style={styles.inputGender}>
           <TextInput
             style={styles.textInput}
             keyboardType='default'
             autoCorrect={false}
-            value={password}
-            onChangeText={passwordInputHandler}
+            value={gender}
+            onChangeText={genderInputHandler}
             placeholder='性別'
             // secureTextEntry={true}
           />
@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
     color: 'black',
     marginVertical: 8,
   },
-  inputPassword: {
+  inputGender: {
     marginBottom: 20,
   },
 })
