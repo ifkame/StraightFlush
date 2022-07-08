@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar'
-import { StyleSheet } from 'react-native'
+import { StyleSheet, LogBox } from 'react-native'
 
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
@@ -27,6 +27,7 @@ import Stamp from './screens/Stamp'
 const Stack = createNativeStackNavigator()
 const BottomTabs = createBottomTabNavigator()
 
+LogBox.ignoreLogs(["exported from 'deprecated-react-native-prop-types'."])
 const MapsNavigation = () => {
   return (
     <BottomTabs.Navigator
@@ -62,7 +63,7 @@ const MapsNavigation = () => {
         }}
       />
       <BottomTabs.Screen
-        name='QR'
+        name='Stamp'
         component={Stamp}
         options={{
           title: 'スタンプ',
@@ -165,6 +166,7 @@ export default function App() {
             component={ResignerGroup3}
             options={{ title: 'Step 3' }}
           />
+          <Stack.Screen name='QR' component={QR} options={{ title: 'QR' }} />
         </Stack.Navigator>
       </NavigationContainer>
     </>
