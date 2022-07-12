@@ -6,6 +6,8 @@ import Colors from '../constants/colors'
 import PrimaryButton from '../components/PrimaryButton'
 import { useNavigation } from '@react-navigation/native'
 
+import { userContext } from '../contexts/UserContext';
+
 const labels = ['Step 1', 'Step 2', '完了']
 const customStyles = {
   stepIndicatorSize: 25,
@@ -32,17 +34,18 @@ const customStyles = {
 }
 
 const ResignerPage = () => {
+  const { email, SetEmail, password, SetPassword } = userContext();
   const navigation = useNavigation()
 
-  const [email, SetEmail] = useState()
-  const [password, setPassword] = useState()
+  // const [email, SetEmail] = useState()
+  // const [password, setPassword] = useState()
 
   const emailInputHandler = (enterText) => {
     SetEmail(enterText)
   }
 
   const passwordInputHandler = (enterText) => {
-    setPassword(enterText)
+    SetPassword(enterText)
   }
 
   const onPressNext = () => {

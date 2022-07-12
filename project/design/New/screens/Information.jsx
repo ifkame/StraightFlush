@@ -1,12 +1,17 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, ScrollView } from 'react-native'
 import React from 'react'
 
-import InformationProcess from '../frontend/InformationProcess'
+import InformationProcess from '../components/InformationProcess'
 const Information = () => {
   return (
-    <View>
+    <ScrollView>
       <InformationProcess />
-    </View>
+      <InformationProcess />
+      <InformationProcess />
+      <InformationProcess />
+      <InformationProcess />
+      <InformationProcess />
+    </ScrollView>
   )
 }
 

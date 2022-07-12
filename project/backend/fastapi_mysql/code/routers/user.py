@@ -56,7 +56,7 @@ async def update_users(user_id:int, body:rm.User):
         entry.password = body.password 
         
 #userの新規作成
-@router.post("/users", tags=["users"])
+@router.post("/user/", tags=["users"])
 async def create_users(body:rm.User):
     user = dm.User()
     session=ds.Session()
@@ -69,7 +69,7 @@ async def create_users(body:rm.User):
     session.commit()
 
 # IDと一致するユーザーの削除
-@router.delete("/users/{user_id}")
+@router.delete("/users/{user_id}", tags=["users"])
 async def delete_users(user_id:int):
      # Userモデル変数
     user = dm.User()

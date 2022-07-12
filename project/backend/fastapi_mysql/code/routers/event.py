@@ -52,3 +52,16 @@ async def update_events(event_id:int, body:rm.Event):
         entry.func_name =body.func_name
         entry.point = body.point
     # return {"data":body}
+
+#eventの新規作成
+@router.post("/event/", tags=["events"])
+async def create_events(body:rm.Event):
+    event = dm.Event()
+    session=ds.Session()
+    event.name = body.name
+    event.start_at =body.start_at
+    event.end_at =body.end_at
+    event.func_name =body.func_name
+    event.point = body.point
+    session.add(event)
+    session.commit()
