@@ -52,26 +52,32 @@ CREATE TABLE events(
      UNIQUE(name)
 );
 
--- スタンプ
+-- スタンプ 主キーを追加
 CREATE TABLE stamps(
+	stamp_id INT AUTO_INCREMENT,
 	user_id INT NOT NULL,
 	product_id INT NOT NULL,
+	img_path VARCHAR(50),
 	created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP 
 				ON UPDATE CURRENT_TIMESTAMP,
+	PRIMARY KEY(stamp_id),
 	CONSTRAINT fk_stamps_users
     	FOREIGN KEY (user_id)
     	REFERENCES users(user_id),
 	CONSTRAINT fk_stamps_product
     	FOREIGN KEY (product_id) 
-    	REFERENCES products(product_id)
+    	REFERENCES products(product_id),
+	UNIQUE(img_path)
 );
 
--- イベントログ
+-- イベントログ 主キーを追加
 CREATE TABLE event_logs(
+	event_log_id INT AUTO_INCREMENT,
      user_id INT NOT NULL,
      event_id INT NOT NULL,
      created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP 
                 ON UPDATE CURRENT_TIMESTAMP,
+	PRIMARY KEY(event_log_id),
      CONSTRAINT fk_eventLg_users
      FOREIGN KEY (user_id) 
      REFERENCES users(user_id),
@@ -80,15 +86,15 @@ CREATE TABLE event_logs(
      REFERENCES events(event_id)
 );
 
--- 通知ログ
+-- 通知ログ 主キーを追加
 CREATE TABLE notice_logs(
-     notice_id INT AUTO_INCREMENT,
+     notice_log_id INT AUTO_INCREMENT,
      user_id INT NOT NULL,
      store_id INT NOT NULL,
      click_flg BOOLEAN NOT NULL DEFAULT FALSE,
      created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP 
                 ON UPDATE CURRENT_TIMESTAMP,
-     PRIMARY KEY(notice_id),
+     PRIMARY KEY(notice_log_id),
      CONSTRAINT fk_noticeLg_users
      FOREIGN KEY (user_id) 
      REFERENCES users(user_id), 
@@ -100,13 +106,13 @@ CREATE TABLE notice_logs(
 
 -- 決算ログ　主キーを追加
 CREATE TABLE payment_logs(
-	payment_id INT AUTO_INCREMENT,
+	payment_log_id INT AUTO_INCREMENT,
      user_id INT NOT NULL,
      store_id INT NOT NULL,
      user_point INT,
      created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP 
                 ON UPDATE CURRENT_TIMESTAMP,
-	PRIMARY KEY(payment_id),
+	PRIMARY KEY(payment_log_id),
      CONSTRAINT fk_paymentLg_users
      FOREIGN KEY (user_id) 
      REFERENCES users(user_id),
