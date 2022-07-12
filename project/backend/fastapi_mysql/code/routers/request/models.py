@@ -16,7 +16,7 @@ class User(BaseModel):
 
 class Store(BaseModel):
     name: str
-    start_at: time #エラーが起こる
+    start_at: time
     end_at: time
     address: str
     content: str
@@ -36,17 +36,21 @@ class Event(BaseModel):
     func_name: str
     point: int
 
-class Event_log(BaseModel):
-    created_at: datetime
-
 class Stamp(BaseModel):
+    user_id: int
+    product_id: int
     img_path: str
-    created_at: datetime
+
+class Event_log(BaseModel):
+    user_id: int
+    event_id: int
 
 class Notice_log(BaseModel):
+    user_id: int
+    store_id: int
     click_flg: bool
-    created_at: datetime
 
 class Payment_log(BaseModel):
+    user_id: int
+    store_id: int
     user_point: int
-    created_at: datetime

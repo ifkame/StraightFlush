@@ -59,11 +59,10 @@ async def update_stores(store_id:int, body:rm.Store):
 
 
 #storeの新規作成
-@router.post("/stores", tags=["stores"])
+@router.post("/store/", tags=["stores"])
 async def create_stores(body:rm.Store):
     store = dm.Store()
     session=ds.Session()
-
     store.name = body.name
     store.start_at = body.start_at
     store.end_at = body.end_at
@@ -73,12 +72,11 @@ async def create_stores(body:rm.Store):
     store.latitude = body.latitude
     store.longitude = body.longitude
     store.opening_at = body.opening_at
-
     session.add(store)
     session.commit()
 
 # IDと一致する店舗の削除
-@router.delete("/stores/{store_id}")
+@router.delete("/stores/{store_id}",  tags=["stores"])
 async def delete_stores(store_id:int):
      # storeモデル変数
     store = dm.Store()

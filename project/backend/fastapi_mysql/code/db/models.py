@@ -56,21 +56,24 @@ class Event(ds.Base):
     func_name = Column(String(30), nullable=False)
     point =  Column(Integer,nullable=False)
 
-class Event_log(ds.Base):
-    __tablename__ = 'event_logs'
-    user_id = Column(Integer,  ForeignKey('users.user_id'), primary_key=True, nullable=False)
-    event_id = Column(Integer, ForeignKey('events.event_id'), nullable=True)
-    created_at = Column(DateTime, nullable=False)
-
 class Stamp(ds.Base):
     __tablename__ = 'stamps'
-    user_id = Column(Integer,  ForeignKey('users.user_id'), primary_key=True, nullable=False)
+    stamp_id = Column(Integer, primary_key=True, autoincrement=True, nullable=False)
+    user_id = Column(Integer,  ForeignKey('users.user_id'), nullable=False)
+    product_id = Column(Integer,  ForeignKey('products.product_id'), nullable=False)
     img_path = Column(String(50),  unique=True)
+    created_at = Column(DateTime, nullable=False)
+
+class Event_log(ds.Base):
+    __tablename__ = 'event_logs'
+    event_log_id = Column(Integer, primary_key=True, autoincrement=True, nullable=False)
+    user_id = Column(Integer,  ForeignKey('users.user_id'), nullable=False)
+    event_id = Column(Integer, ForeignKey('events.event_id'), nullable=True)
     created_at = Column(DateTime, nullable=False)
 
 class Notice_log(ds.Base):
     __tablename__ = 'notice_logs'
-    notice_id = Column(Integer,  primary_key=True, autoincrement=True)
+    notice_log_id = Column(Integer,  primary_key=True, autoincrement=True)
     user_id = Column(Integer,  ForeignKey('users.user_id'), nullable=False)
     store_id = Column(Integer,  ForeignKey('stores.store_id'), nullable=False)
     click_flg = Column(Boolean, nullable=False)
@@ -78,7 +81,7 @@ class Notice_log(ds.Base):
 
 class Payment_log(ds.Base):
     __tablename__ = 'payment_logs'
-    payment_id = Column(Integer,  primary_key=True, autoincrement=True)
+    payment_log_id = Column(Integer,  primary_key=True, autoincrement=True)
     user_id = Column(Integer,  ForeignKey('users.user_id'), nullable=False)
     store_id = Column(Integer,  ForeignKey('stores.store_id'), nullable=False)
     user_point = (Integer)
