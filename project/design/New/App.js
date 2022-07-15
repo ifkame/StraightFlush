@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar'
-import { StyleSheet, LogBox } from 'react-native'
+import { StyleSheet, Pressable, Image } from 'react-native'
 
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
@@ -23,16 +23,59 @@ import ResignerGroup2 from './screens/ResignerGroup/ResignerGroup2'
 import ResignerGroup3 from './screens/ResignerGroup/ResignerGroup3'
 import QR from './screens/QR'
 import Stamp from './screens/Stamp'
+import Profile from './screens/Profile'
+import Setting from './screens/Setting'
 
 const Stack = createNativeStackNavigator()
 const BottomTabs = createBottomTabNavigator()
 
-LogBox.ignoreLogs(["exported from 'deprecated-react-native-prop-types'."])
+const MyPageStack = createNativeStackNavigator()
+
+function MyPageScreen() {
+  return (
+    <MyPageStack.Navigator
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: Colors.primary2,
+        },
+      }}
+    >
+      <MyPageStack.Screen
+        name='MyPage'
+        component={MyPage}
+        options={{
+          title: 'マイページ',
+          headerTintColor: '#fff',
+        }}
+      />
+      <MyPageStack.Screen
+        name='Profile'
+        component={Profile}
+        options={{
+          title: 'プロフィール編集',
+          headerTintColor: '#fff',
+        }}
+      />
+      <MyPageStack.Screen
+        name='Setting'
+        component={Setting}
+        options={{
+          title: 'アプリ設定',
+          headerTintColor: '#fff',
+        }}
+      />
+    </MyPageStack.Navigator>
+  )
+}
 const MapsNavigation = () => {
   return (
     <BottomTabs.Navigator
       screenOptions={{
         tabBarActiveTintColor: Colors.primary,
+        headerTintColor: 'white',
+        headerStyle: {
+          backgroundColor: Colors.primary2,
+        },
         // tabBarStyle: {
         //   borderTopLeftRadius: 28,
         //   borderTopRightRadius: 28,
@@ -46,6 +89,7 @@ const MapsNavigation = () => {
         options={{
           title: 'マップ',
           tabBarLabel: 'マップ',
+
           tabBarIcon: ({ size, color }) => (
             <Ionicons name='location-sharp' size={24} color={color} />
           ),
@@ -72,15 +116,6 @@ const MapsNavigation = () => {
           tabBarIcon: ({ size, color }) => (
             <FontAwesome5 name='stamp' size={24} color={color} />
           ),
-          tabBarIconStyle: {
-            // position: 'absolute',
-            // top: -34,
-            // height: 66,
-            // width: 66,
-            // backgroundColor: '#FCECCD',
-            // borderRadius: 33,
-            // shadowOpacity: 0.1,
-          },
         }}
       />
       <BottomTabs.Screen
@@ -96,10 +131,17 @@ const MapsNavigation = () => {
       />
       <BottomTabs.Screen
         name='MyPage'
-        component={MyPage}
+        component={MyPageScreen}
         options={{
-          title: 'マイベージ',
-          tabBarLabel: 'マイベージ',
+          headerShown: false,
+          tabBarLabel: 'マイページ',
+          headerRight: () => {
+            return (
+              <Pressable onPress={() => {}} style={{ marginRight: 15 }}>
+                <Image source={require('./assets/window.png')}></Image>
+              </Pressable>
+            )
+          },
           tabBarIcon: ({ size, color }) => (
             <Ionicons name='person' size={24} color={color} />
           ),
@@ -117,7 +159,12 @@ export default function App() {
           <Stack.Screen
             name='StartScreen'
             component={StartScreen}
-            options={{ headerShown: false }}
+            options={{
+              headerShown: false,
+              headerStyle: {
+                backgroundColor: Colors.primary2,
+              },
+            }}
           />
           <Stack.Screen
             name='Resigner'
