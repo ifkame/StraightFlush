@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, Pressable } from 'react-native'
+import { StyleSheet, Text, View, Image, Pressable, ScrollView } from 'react-native'
 import React from 'react'
 import { useNavigation } from '@react-navigation/native'
 
@@ -49,6 +49,7 @@ const MyPage = () => {
 
   return (
     <>
+      <ScrollView>
       <View style={styles.screen}>
         <Text style={styles.txt}>コイン残高</Text>
         <View style={styles.coin}>
@@ -88,6 +89,7 @@ const MyPage = () => {
           </Text>
         </Pressable>
       </View>
+      </ScrollView>
     </>
   )
 }
