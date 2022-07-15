@@ -65,3 +65,12 @@ async def create_events(body:rm.Event):
     event.point = body.point
     session.add(event)
     session.commit()
+
+# IDと一致するユーザーの削除
+@router.delete("/events/{event_id}", tags=["events"])
+async def delete_events(event_id:int):
+     # eventモデル変数
+    event = dm.Event()
+    session=ds.Session()
+    with ds.session_scope() as session:
+        dm.Event.query.filter(dm.Event.event_id == event_id).delete()

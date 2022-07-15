@@ -26,6 +26,7 @@ class Store(BaseModel):
     opening_at: date
 
 class Product(BaseModel):
+    store_id: int
     name: str
     img_path: str
 
