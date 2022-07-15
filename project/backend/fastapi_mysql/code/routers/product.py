@@ -46,7 +46,27 @@ async def update_products(product_id:int, body:rm.Product):
     session=ds.Session()
     with ds.session_scope() as session:
         entry = dm.Product.query.filter(dm.Product.product_id == product_id).first()
-        # entry.store_id = body.store_id
+        # entry.product_id = body.product_id
         entry.name = body.name
         entry.img_path =body.img_path
     # return {"data":body}
+
+#productの新規作成
+@router.post("/product/", tags=["products"])
+async def create_products(body:rm.Product):
+    product = dm.Product()
+    session=ds.Session()
+    product.store_id = body.store_id
+    product.name = body.name
+    product.img_path =body.img_path
+    session.add(product)
+    session.commit()
+
+# IDと一致するユーザーの削除
+@router.delete("/products/{product_id}", tags=["products"])
+async def delete_products(product_id:int):
+     # productモデル変数
+    product = dm.Product()
+    session=ds.Session()
+    with ds.session_scope() as session:
+        dm.Product.query.filter(dm.Product.product_id == product_id).delete()

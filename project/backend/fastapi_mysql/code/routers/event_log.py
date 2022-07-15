@@ -6,7 +6,7 @@ FastAPIのサブインスタンスを使っエンドポイントを実装して�
 from datetime import datetime
 from dataclasses import dataclass
 from unicodedata import name
-from db.models import Event_log
+# from db.models import Event_log
 from fastapi import APIRouter
 from fastapi import HTTPException
 
@@ -54,13 +54,12 @@ async def update_event_logs(event_log_id:int, body:rm.Event_log):
 
 #event_logの新規作成
 @router.post("/event_log/", tags=["event_logs"])
-async def create_events(body:rm.Event_log):
+def create_event_logs(user_id: int, event_id: int):
     event_log = dm.Event_log()
     session=ds.Session()
-    event_log.user_id = body.user_id
-    event_log.event_id =body.event_id
+    event_log.user_id = user_id
+    event_log.event_id = event_id
     event_log.created_at = datetime.now()
     session.add(event_log)
     session.commit()
-
-
+    session.close()

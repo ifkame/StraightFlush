@@ -67,22 +67,22 @@ class Stamp(ds.Base):
 class Event_log(ds.Base):
     __tablename__ = 'event_logs'
     event_log_id = Column(Integer, primary_key=True, autoincrement=True, nullable=False)
-    user_id = Column(Integer,  ForeignKey('users.user_id'), nullable=False)
-    event_id = Column(Integer, ForeignKey('events.event_id'), nullable=True)
+    user_id = Column(Integer, nullable=False)
+    event_id = Column(Integer, nullable=False)
     created_at = Column(DateTime, nullable=False)
 
 class Notice_log(ds.Base):
     __tablename__ = 'notice_logs'
     notice_log_id = Column(Integer,  primary_key=True, autoincrement=True)
-    user_id = Column(Integer,  ForeignKey('users.user_id'), nullable=False)
-    store_id = Column(Integer,  ForeignKey('stores.store_id'), nullable=False)
+    user_id = Column(Integer, nullable=False)
+    store_id = Column(Integer,  nullable=False)
     click_flg = Column(Boolean, nullable=False)
     created_at = Column(DateTime, nullable=False)
 
 class Payment_log(ds.Base):
     __tablename__ = 'payment_logs'
     payment_log_id = Column(Integer,  primary_key=True, autoincrement=True)
-    user_id = Column(Integer,  ForeignKey('users.user_id'), nullable=False)
-    store_id = Column(Integer,  ForeignKey('stores.store_id'), nullable=False)
+    user_id = Column(Integer, nullable=False)
+    store_id = Column(Integer,  nullable=False)
     user_point = (Integer)
     created_at = Column(DateTime, nullable=False)
