@@ -1,14 +1,14 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
-const Event = () => {
+const Mission = () => {
   return (
     <View>
-      <Text>Event</Text>
+      <Text>Mission</Text>
     </View>
   )
 }
 
-export default Event
+export default Mission
 
 const styles = StyleSheet.create({})

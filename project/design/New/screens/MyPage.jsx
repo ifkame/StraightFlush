@@ -43,6 +43,10 @@ const MyPage = () => {
     navigation.navigate('Setting')
   }
 
+  const handleShop = () => {
+    navigation.navigate('Shop')
+  }
+
   return (
     <>
       <View style={styles.screen}>
@@ -77,7 +81,7 @@ const MyPage = () => {
           </Pressable>
         </View>
 
-        <Pressable style={styles.controlBottom}>
+        <Pressable style={styles.controlBottom} onPress={handleShop}>
           <Image source={require('../assets/shop.png')} />
           <Text style={{ color: 'white', fontWeight: 'bold', marginTop: 5 }}>
             お気に入り店舗
