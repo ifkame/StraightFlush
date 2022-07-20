@@ -1,10 +1,12 @@
 import { StatusBar } from 'expo-status-bar'
-import { StyleSheet, Pressable, Image } from 'react-native'
+import { StyleSheet, Pressable, Image, LogBox } from 'react-native'
+
+import { store } from './store/store'
+import { Provider } from 'react-redux'
 
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { Provider } from 'react-redux'
 
 import { Ionicons, FontAwesome, FontAwesome5 } from '@expo/vector-icons'
 import Colors from './constants/colors'
@@ -29,7 +31,7 @@ import Setting from './screens/Setting'
 import Shop from './screens/Shop'
 import StampDetails from './screens/StampDetails'
 
-import { store } from './store/redux/store'
+LogBox.ignoreLogs(["exported from 'deprecated-react-native-prop-types'."])
 
 const Stack = createNativeStackNavigator()
 const BottomTabs = createBottomTabNavigator()

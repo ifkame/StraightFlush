@@ -7,14 +7,11 @@ import {
   Pressable,
 } from 'react-native'
 import React from 'react'
-import { useNavigation } from '@react-navigation/native'
 
 import Colors from '../constants/colors'
 import { MEET } from '../constants/data'
 
-const Stamp = () => {
-  const navigation = useNavigation()
-
+const Stamp = ({ navigation, route }) => {
   const renderItem = (itemData) => {
     const openStamp = () => {
       navigation.navigate('StampDetails', {
@@ -24,7 +21,7 @@ const Stamp = () => {
     return (
       <>
         <Pressable style={styles.groupImage} onPress={openStamp}>
-          <Image source={itemData.item.image} style={styles.image} />
+          <Image source={{ uri: itemData.item.image }} style={styles.image} />
         </Pressable>
       </>
     )
@@ -75,6 +72,8 @@ const styles = StyleSheet.create({
   },
   image: {
     margin: 10,
+    width: 100,
+    height: 100,
   },
   groupImage: {
     flex: 1,
