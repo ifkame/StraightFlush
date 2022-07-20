@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit'
 
-import imageReducer from './image'
+import favoritesReducer from './favorites'
 
 export const store = configureStore({
   reducer: {
-    imageMeels: imageReducer,
+    favoriteMeals: favoritesReducer,
   },
 })
