@@ -1,9 +1,10 @@
 import { StatusBar } from 'expo-status-bar'
-import { StyleSheet, LogBox } from 'react-native'
+import { StyleSheet, Pressable, Image } from 'react-native'
 
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { Provider } from 'react-redux'
 
 import { Ionicons, FontAwesome, FontAwesome5 } from '@expo/vector-icons'
 import Colors from './constants/colors'
@@ -13,7 +14,7 @@ import Login from './screens/Login'
 import Resigner from './screens/Resigner'
 import Maps from './screens/Maps'
 import Information from './screens/Information'
-import Event from './screens/Event'
+import Mission from './screens/Mission'
 import MyPage from './screens/MyPage'
 import ResignerPage1 from './screens/ResignerPage1'
 import ResignerPage2 from './screens/ResignerPage2'
@@ -23,21 +24,104 @@ import ResignerGroup2 from './screens/ResignerGroup/ResignerGroup2'
 import ResignerGroup3 from './screens/ResignerGroup/ResignerGroup3'
 import QR from './screens/QR'
 import Stamp from './screens/Stamp'
+import Profile from './screens/Profile'
+import Setting from './screens/Setting'
+import Shop from './screens/Shop'
+import StampDetails from './screens/StampDetails'
+
+import { store } from './store/redux/store'
 
 const Stack = createNativeStackNavigator()
 const BottomTabs = createBottomTabNavigator()
 
-LogBox.ignoreLogs(["exported from 'deprecated-react-native-prop-types'."])
+const MyPageStack = createNativeStackNavigator()
+
+const StampStack = createNativeStackNavigator()
+
+const StampScreen = () => {
+  return (
+    <StampStack.Navigator
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: Colors.primary2,
+        },
+      }}
+    >
+      <StampStack.Screen
+        name='Stamp'
+        component={Stamp}
+        options={{ title: 'スタンプ', headerTintColor: '#fff' }}
+      />
+      <StampStack.Screen
+        name='StampDetails'
+        component={StampDetails}
+        options={{ title: 'スタンプ帳', headerTintColor: '#fff' }}
+      />
+    </StampStack.Navigator>
+  )
+}
+
+function MyPageScreen() {
+  return (
+    <MyPageStack.Navigator
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: Colors.primary2,
+        },
+      }}
+    >
+      <MyPageStack.Screen
+        name='MyPage'
+        component={MyPage}
+        options={{
+          title: 'マイページ',
+          headerTintColor: '#fff',
+          headerRight: () => {
+            return (
+              <Pressable onPress={() => {}} style={{ marginRight: 15 }}>
+                <Image source={require('./assets/window.png')}></Image>
+              </Pressable>
+            )
+          },
+        }}
+      />
+
+      <MyPageStack.Screen
+        name='Profile'
+        component={Profile}
+        options={{
+          title: 'プロフィール編集',
+          headerTintColor: '#fff',
+        }}
+      />
+      <MyPageStack.Screen
+        name='Setting'
+        component={Setting}
+        options={{
+          title: 'アプリ設定',
+          headerTintColor: '#fff',
+        }}
+      />
+      <MyPageStack.Screen
+        name='Shop'
+        component={Shop}
+        options={{
+          title: 'お気に入り店舗',
+          headerTintColor: '#fff',
+        }}
+      />
+    </MyPageStack.Navigator>
+  )
+}
 const MapsNavigation = () => {
   return (
     <BottomTabs.Navigator
       screenOptions={{
         tabBarActiveTintColor: Colors.primary,
-        // tabBarStyle: {
-        //   borderTopLeftRadius: 28,
-        //   borderTopRightRadius: 28,
-        //   shadowOpacity: 0.2,
-        // },
+        headerTintColor: 'white',
+        headerStyle: {
+          backgroundColor: Colors.primary2,
+        },
       }}
     >
       <BottomTabs.Screen
@@ -46,6 +130,7 @@ const MapsNavigation = () => {
         options={{
           title: 'マップ',
           tabBarLabel: 'マップ',
+
           tabBarIcon: ({ size, color }) => (
             <Ionicons name='location-sharp' size={24} color={color} />
           ),
@@ -63,43 +148,34 @@ const MapsNavigation = () => {
         }}
       />
       <BottomTabs.Screen
-        name='Stamp'
-        component={Stamp}
+        name='StampScreen'
+        component={StampScreen}
         options={{
-          title: 'スタンプ',
+          headerShown: false,
           tabBarLabel: 'スタンプ',
-          // tabBarShowLabel: false,
           tabBarIcon: ({ size, color }) => (
             <FontAwesome5 name='stamp' size={24} color={color} />
           ),
-          tabBarIconStyle: {
-            // position: 'absolute',
-            // top: -34,
-            // height: 66,
-            // width: 66,
-            // backgroundColor: '#FCECCD',
-            // borderRadius: 33,
-            // shadowOpacity: 0.1,
-          },
         }}
       />
       <BottomTabs.Screen
         name='Event'
-        component={Event}
+        component={Mission}
         options={{
-          title: 'イベント',
-          tabBarLabel: 'イベント',
+          title: 'ミッション',
+          tabBarLabel: 'ミッション',
           tabBarIcon: ({ size, color }) => (
             <Ionicons name='calendar' size={24} color={color} />
           ),
         }}
       />
       <BottomTabs.Screen
-        name='MyPage'
-        component={MyPage}
+        name='MyPageScreen'
+        component={MyPageScreen}
         options={{
-          title: 'マイベージ',
-          tabBarLabel: 'マイベージ',
+          headerShown: false,
+          tabBarLabel: 'マイページ',
+
           tabBarIcon: ({ size, color }) => (
             <Ionicons name='person' size={24} color={color} />
           ),
@@ -112,63 +188,70 @@ const MapsNavigation = () => {
 export default function App() {
   return (
     <>
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen
-            name='StartScreen'
-            component={StartScreen}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name='Resigner'
-            component={Resigner}
-            options={{ title: '新規登録' }}
-          />
-          <Stack.Screen
-            name='Login'
-            component={Login}
-            options={{ title: 'ログイン' }}
-          />
-          <Stack.Screen
-            name='MapsNavigation'
-            component={MapsNavigation}
-            options={{
-              headerShown: false,
-            }}
-          />
-          <Stack.Screen
-            name='ResignerPage1'
-            component={ResignerPage1}
-            options={{ title: 'Step 1' }}
-          />
-          <Stack.Screen
-            name='ResignerPage2'
-            component={ResignerPage2}
-            options={{ title: 'Step 2' }}
-          />
-          <Stack.Screen
-            name='ResignerPage3'
-            component={ResignerPage3}
-            options={{ title: 'Step 3' }}
-          />
-          <Stack.Screen
-            name='ResignerGroup1'
-            component={ResignerGroup1}
-            options={{ title: 'Step 1' }}
-          />
-          <Stack.Screen
-            name='ResignerGroup2'
-            component={ResignerGroup2}
-            options={{ title: 'Step 2' }}
-          />
-          <Stack.Screen
-            name='ResignerGroup3'
-            component={ResignerGroup3}
-            options={{ title: 'Step 3' }}
-          />
-          <Stack.Screen name='QR' component={QR} options={{ title: 'QR' }} />
-        </Stack.Navigator>
-      </NavigationContainer>
+      <Provider store={store}>
+        <NavigationContainer>
+          <Stack.Navigator>
+            <Stack.Screen
+              name='StartScreen'
+              component={StartScreen}
+              options={{
+                headerShown: false,
+                headerStyle: {
+                  backgroundColor: Colors.primary2,
+                },
+              }}
+            />
+            <Stack.Screen
+              name='Resigner'
+              component={Resigner}
+              options={{ title: '新規登録' }}
+            />
+            <Stack.Screen
+              name='Login'
+              component={Login}
+              options={{ title: 'ログイン' }}
+            />
+            <Stack.Screen
+              name='MapsNavigation'
+              component={MapsNavigation}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name='ResignerPage1'
+              component={ResignerPage1}
+              options={{ title: 'Step 1' }}
+            />
+            <Stack.Screen
+              name='ResignerPage2'
+              component={ResignerPage2}
+              options={{ title: 'Step 2' }}
+            />
+            <Stack.Screen
+              name='ResignerPage3'
+              component={ResignerPage3}
+              options={{ title: 'Step 3' }}
+            />
+            <Stack.Screen
+              name='ResignerGroup1'
+              component={ResignerGroup1}
+              options={{ title: 'Step 1' }}
+            />
+            <Stack.Screen
+              name='ResignerGroup2'
+              component={ResignerGroup2}
+              options={{ title: 'Step 2' }}
+            />
+            <Stack.Screen
+              name='ResignerGroup3'
+              component={ResignerGroup3}
+              options={{ title: 'Step 3' }}
+            />
+            <Stack.Screen name='QR' component={QR} options={{ title: 'QR' }} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </Provider>
     </>
   )
 }

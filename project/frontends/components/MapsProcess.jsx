@@ -2,7 +2,6 @@ import { StyleSheet, Text, View, Modal, Pressable, Image } from 'react-native'
 import React, { useState } from 'react'
 import { FontAwesome5, Fontisto, Ionicons } from '@expo/vector-icons'
 
-<<<<<<< HEAD
 import { useNavigation } from '@react-navigation/native'
 
 import Colors from '../constants/colors'
@@ -21,16 +20,6 @@ const MapsProcess = () => {
       <Pressable style={[styles.direction, styles.circleStyle]}>
         <Image source={require('../assets/direction.png')}></Image>
       </Pressable>
-=======
-import Colors from '../constants/colors'
-
-const MapsProcess = () => {
-  const [modalVisible, setModalVisible] = useState(false)
-  return (
-    <View style={styles.screen}>
-      <Ionicons name='qr-code-sharp' size={24} color='black' />
-      <Image source={require('../assets/direction.png')}></Image>
->>>>>>> 0b9c9494e3444b92771411b28a12e906f1db29fc
       <Modal
         animationType='slide'
         transparent={true}
@@ -49,11 +38,7 @@ const MapsProcess = () => {
             <View style={[styles.row, styles.modalContent]}>
               <Image source={require('../assets/meet.png')}></Image>
               <View style={styles.textView}>
-<<<<<<< HEAD
                 <View style={[styles.row, { justifyContent: 'space-between' }]}>
-=======
-                <View style={[styles.row]}>
->>>>>>> 0b9c9494e3444b92771411b28a12e906f1db29fc
                   <Text style={styles.textTitle}>
                     大阪市北区中崎西2丁目３-14
                   </Text>
@@ -179,7 +164,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     fontSize: 8,
   },
-<<<<<<< HEAD
   qr: {
     position: 'absolute',
     bottom: 90,
@@ -206,6 +190,4 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 4,
   },
-=======
->>>>>>> 0b9c9494e3444b92771411b28a12e906f1db29fc
 })
