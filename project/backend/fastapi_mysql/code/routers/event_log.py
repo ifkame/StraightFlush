@@ -50,7 +50,6 @@ async def update_event_logs(event_log_id:int, body:rm.Event_log):
         entry.user_id = body.user_id
         entry.event_id =body.event_id
         entry.created_at = datetime.now()
-    # return {"data":body}
 
 #event_logの新規作成
 @router.post("/event_log/", tags=["event_logs"])
@@ -62,4 +61,3 @@ def create_event_logs(user_id: int, event_id: int):
     event_log.created_at = datetime.now()
     session.add(event_log)
     session.commit()
-    session.close()

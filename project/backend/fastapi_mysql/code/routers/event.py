@@ -51,7 +51,6 @@ async def update_events(event_id:int, body:rm.Event):
         entry.end_at =body.end_at
         entry.func_name =body.func_name
         entry.point = body.point
-    # return {"data":body}
 
 #eventの新規作成
 @router.post("/event/", tags=["events"])

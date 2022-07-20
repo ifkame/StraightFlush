@@ -13,6 +13,7 @@ class User(BaseModel):
     fcm_token: str
     mail: Optional[str]
     password: Optional[str]
+    # point: int
 
 class Store(BaseModel):
     name: str
@@ -40,6 +41,7 @@ class Event(BaseModel):
 class Stamp(BaseModel):
     user_id: int
     product_id: int
+    store_id: int
     img_path: str
 
 class Event_log(BaseModel):

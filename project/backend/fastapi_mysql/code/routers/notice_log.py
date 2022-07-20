@@ -51,7 +51,6 @@ async def update_notice_log(notice_log_id:int, body:rm.Notice_log):
         entry = dm.Notice_log.query.filter(dm.Notice_log.notice_log_id == notice_log_id).first()
         entry.click_flg = body.click_flg
         entry.created_at = datetime.now()
-    # return {"data":body}
 
 #notice_logの新規作成
 @router.post("/notice_log/", tags=["notice_logs"])

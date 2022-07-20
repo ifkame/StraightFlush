@@ -60,8 +60,9 @@ class Stamp(ds.Base):
     __tablename__ = 'stamps'
     stamp_id = Column(Integer, primary_key=True, autoincrement=True, nullable=False)
     user_id = Column(Integer,  ForeignKey('users.user_id'), nullable=False)
+    store_id = Column(Integer,  ForeignKey('products.store_id'), nullable=False)
     product_id = Column(Integer,  ForeignKey('products.product_id'), nullable=False)
-    img_path = Column(String(50),  unique=True)
+    img_path = Column(String(50), nullable=False)
     created_at = Column(DateTime, nullable=False)
 
 class Event_log(ds.Base):

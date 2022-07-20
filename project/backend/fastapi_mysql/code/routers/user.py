@@ -4,6 +4,7 @@ FastAPIのサブインスタンスを使っエンドポイントを実装して�
 '''
 # FastAPIからRouterインスタンスインポート
 from dataclasses import dataclass
+from email.base64mime import body_decode
 from unicodedata import name
 from db.models import User
 from fastapi import APIRouter
@@ -38,7 +39,6 @@ def read_user(user_id: int):
         filter(dm.User.user_id == user_id).first()
     if(user == None ):
         raise HTTPException(status_code=404, detail="指定されたIDのユーザーは存在しません")
-
     return user
 
 # 以下の部分が追加内容になります。
@@ -76,6 +76,17 @@ async def delete_users(user_id:int):
     session=ds.Session()
     with ds.session_scope() as session:
         dm.User.query.filter(dm.User.user_id == user_id).delete()
+
+# userのポイントを更新
+@router.put("/users_point/{user_id}", tags=["users"])
+def update_users_point(user_id:int, point:int):
+
+     # Userモデル変数
+    user = dm.User()
+    session=ds.Session()
+    with ds.session_scope() as session:
+        entry = dm.User.query.filter(dm.User.user_id == user_id).first()
+        entry.point += point
 
 
 
