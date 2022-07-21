@@ -13,7 +13,6 @@ import * as BackgroundFetch from 'expo-background-fetch';   //バックグラウ
 import * as TaskManager from 'expo-task-manager';           //タスクマネージャー
 import * as Notifications from 'expo-notifications';        //通知設定
 import * as Location from 'expo-location';                  //位置情報
-import * as ErrorRecovery from 'expo-error-recovery';       //エラー対応
 
 // console.log('エラー情報：', ErrorRecovery.setRecoveryProps(props))  //エラー情報表示
 
