@@ -212,7 +212,7 @@ function Notification() {
 
     return (
         <View style={styles.screen}>
-            {/* <View style={styles.textContainer}>
+            <View style={styles.textContainer}>
                 <Text>
                 Background fetch status:{' '}
                 <Text style={styles.boldText}>
@@ -225,13 +225,13 @@ function Notification() {
                     {isRegistered ? BACKGROUND_FETCH_TASK : 'Not registered yet!'}
                 </Text>
                 </Text>
-            </View> */}
+            </View>
             <View style={styles.textContainer}></View>
             <Button
                 title={isRegistered ? 'Unregister BackgroundFetch task' : 'Register BackgroundFetch task'}
                 onPress={toggleFetchTask}
             />
-            {/* <Text>Your expo push token: {expoPushToken}</Text>
+            <Text>Your expo push token: {expoPushToken}</Text>
             <View style={{ alignItems: 'center', justifyContent: 'center' }}>
                 <Text>Title: {notification && notification.request.content.title} </Text>
                 <Text>Body: {notification && notification.request.content.body}</Text>
@@ -242,7 +242,7 @@ function Notification() {
                 onPress={async () => {
                     await schedulePushNotification();
                 }}
-            /> */}
+            />
         </View>
     );
 }
