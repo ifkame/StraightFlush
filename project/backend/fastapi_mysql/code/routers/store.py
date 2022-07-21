@@ -55,8 +55,6 @@ async def update_stores(store_id:int, body:rm.Store):
         entry.latitude = body.latitude
         entry.longitude = body.longitude
         entry.opening_at = body.opening_at
-    # return {"data":body}
-
 
 #storeの新規作成
 @router.post("/store/", tags=["stores"])

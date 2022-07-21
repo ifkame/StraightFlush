@@ -9,7 +9,7 @@ CREATE TABLE users(
     UNIQUE(fcm_token)
 );
 
--- 店舗 緯度経度が複合ユニークになっていたので別々にしました
+-- 店舗 -- 緯度経度が複合ユニークになっていたので別々にしました
 CREATE TABLE stores(
      store_id INT AUTO_INCREMENT,
      name VARCHAR(30) NOT NULL,
@@ -52,41 +52,38 @@ CREATE TABLE events(
      UNIQUE(name)
 );
 
--- スタンプ 主キーを追加
+-- スタンプ store_idを追加
 CREATE TABLE stamps(
 	stamp_id INT AUTO_INCREMENT,
 	user_id INT NOT NULL,
+	store_id INT NOT NULL,
 	product_id INT NOT NULL,
-	img_path VARCHAR(50),
+	img_path VARCHAR(50) NOT NULL,
 	created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP 
 				ON UPDATE CURRENT_TIMESTAMP,
-	PRIMARY KEY(stamp_id),
 	CONSTRAINT fk_stamps_users
     	FOREIGN KEY (user_id)
     	REFERENCES users(user_id),
+	CONSTRAINT fk_stamps_store
+    	FOREIGN KEY (store_id) 
+    	REFERENCES products(store_id),
 	CONSTRAINT fk_stamps_product
     	FOREIGN KEY (product_id) 
     	REFERENCES products(product_id),
-	UNIQUE(img_path)
+	PRIMARY KEY(stamp_id)
 );
 
--- イベントログ 主キーを追加
+-- イベントログ　主キー追加、外部キー削除
 CREATE TABLE event_logs(
 	event_log_id INT AUTO_INCREMENT,
      user_id INT NOT NULL,
      event_id INT NOT NULL,
      created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP 
                 ON UPDATE CURRENT_TIMESTAMP,
-	PRIMARY KEY(event_log_id),
-     CONSTRAINT fk_eventLg_users
-     FOREIGN KEY (user_id) 
-     REFERENCES users(user_id),
-     CONSTRAINT fk_eventLg_events
-     FOREIGN KEY (event_id) 
-     REFERENCES events(event_id)
+	PRIMARY KEY(event_log_id)
 );
 
--- 通知ログ 主キーを追加
+-- 通知ログ　主キー追加、外部キー削除
 CREATE TABLE notice_logs(
      notice_log_id INT AUTO_INCREMENT,
      user_id INT NOT NULL,
@@ -94,17 +91,11 @@ CREATE TABLE notice_logs(
      click_flg BOOLEAN NOT NULL DEFAULT FALSE,
      created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP 
                 ON UPDATE CURRENT_TIMESTAMP,
-     PRIMARY KEY(notice_log_id),
-     CONSTRAINT fk_noticeLg_users
-     FOREIGN KEY (user_id) 
-     REFERENCES users(user_id), 
-     CONSTRAINT fk_noticeLg_stores
-     FOREIGN KEY (store_id) 
-     REFERENCES stores(store_id)
+     PRIMARY KEY(notice_log_id)
 );
 
 
--- 決算ログ　主キーを追加
+-- 決算ログ　主キーを追加、外部キー削除
 CREATE TABLE payment_logs(
 	payment_log_id INT AUTO_INCREMENT,
      user_id INT NOT NULL,
@@ -112,13 +103,7 @@ CREATE TABLE payment_logs(
      user_point INT,
      created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP 
                 ON UPDATE CURRENT_TIMESTAMP,
-	PRIMARY KEY(payment_log_id),
-     CONSTRAINT fk_paymentLg_users
-     FOREIGN KEY (user_id) 
-     REFERENCES users(user_id),
-     CONSTRAINT fk_paymentLg_stores
-     FOREIGN KEY (store_id) 
-     REFERENCES stores(store_id)
+	PRIMARY KEY(payment_log_id)
 );
 
 

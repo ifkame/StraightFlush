@@ -49,7 +49,6 @@ async def update_payment_log(payment_log_id:int, body:rm.Payment_log):
         entry = dm.Payment_log.query.filter(dm.Payment_log.payment_log_id == payment_log_id).first()
         entry.user_point = body.user_point
         entry.created_at =body.created_at
-    # return {"data":body}
 
 #payment_logの新規作成
 @router.post("/payment_log/", tags=["payment_logs"])

@@ -49,7 +49,6 @@ async def update_products(product_id:int, body:rm.Product):
         # entry.product_id = body.product_id
         entry.name = body.name
         entry.img_path =body.img_path
-    # return {"data":body}
 
 #productの新規作成
 @router.post("/product/", tags=["products"])

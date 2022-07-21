@@ -1,10 +1,18 @@
-import { StyleSheet, Text, View, ScrollView, Image } from 'react-native'
-import React from 'react'
+import {
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  Image,
+  Pressable,
+} from 'react-native'
+import React, { useState } from 'react'
 import { FontAwesome5, Fontisto, Ionicons } from '@expo/vector-icons'
 
 import Colors from '../constants/colors'
 
 const InformationProcess = () => {
+  const [icon, setIcon] = useState(false)
   return (
     <View style={styles.centeredView}>
       <View style={styles.modalView}>
@@ -41,7 +49,17 @@ const InformationProcess = () => {
                 />
                 <Text style={styles.margin}>11:00 - 22:00 </Text>
               </View>
-              <Ionicons name='md-star' size={24} color={Colors.primary} />
+              <Pressable onPress={() => setIcon(!icon)}>
+                {icon ? (
+                  <Ionicons name='md-star' size={24} color={Colors.primary} />
+                ) : (
+                  <Ionicons
+                    name='star-outline'
+                    size={24}
+                    color={Colors.primary}
+                  />
+                )}
+              </Pressable>
             </View>
           </View>
         </View>
