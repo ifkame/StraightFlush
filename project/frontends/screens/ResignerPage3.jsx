@@ -20,6 +20,8 @@ import { useNavigation } from '@react-navigation/native'
 import { Picker } from '@react-native-picker/picker'
 import { AntDesign } from '@expo/vector-icons'
 
+import { userContext } from '../contexts/UserContext';
+
 const labels = ['Step 1', 'Step 2', 'Step 3']
 const customStyles = {
   stepIndicatorSize: 25,
@@ -49,8 +51,7 @@ const ResignerPage3 = () => {
   const [modalTop, setModalTop] = useState(false)
   const [modalBottom, setModalBottom] = useState(false)
 
-  const [frequency, setFrequency] = useState('１時間')
-  const [range, setRange] = useState('１００m')
+  const { frequency, SetFrequency, range, SetRange } = userContext
 
   const navigation = useNavigation()
 
@@ -87,7 +88,7 @@ const ResignerPage3 = () => {
               {Platform.OS !== 'ios' ? (
                 <Picker
                   selectedValue={frequency}
-                  onValueChange={(value, index) => setFrequency(value)}
+                  onValueChange={(value, index) => SetFrequency(value)}
                   mode='dialog'
                   style={styles.picker}
                 >
@@ -107,7 +108,7 @@ const ResignerPage3 = () => {
               {Platform.OS !== 'ios' ? (
                 <Picker
                   selectedValue={range}
-                  onValueChange={(value, index) => setRange(value)}
+                  onValueChange={(value, index) => SetRange(value)}
                   mode='dialog'
                   style={
                     Platform.OS !== 'ios' ? styles.picker : styles.pickerIOS
@@ -131,7 +132,7 @@ const ResignerPage3 = () => {
                 setShowModal={setModalTop}
                 showModal={modalTop}
                 value={frequency}
-                setValue={setFrequency}
+                setValue={SetFrequency}
                 items={time}
               />
             )}
@@ -141,7 +142,7 @@ const ResignerPage3 = () => {
                 setShowModal={setModalBottom}
                 showModal={modalBottom}
                 value={range}
-                setValue={setRange}
+                setValue={SetRange}
                 items={meter}
               />
             )}

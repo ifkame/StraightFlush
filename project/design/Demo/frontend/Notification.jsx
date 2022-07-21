@@ -253,7 +253,7 @@ async function schedulePushNotification() {
         await Notifications.scheduleNotificationAsync({
             content: {
                 title: "近くにお店があります。",
-                body: 'ラーメン屋：ECCこってり次郎',
+                body: '肉料理: RICH GARDEN',
                 data: { data: 'goes here' },
             },
             trigger: { seconds: 2 },

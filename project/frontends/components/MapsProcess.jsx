@@ -1,7 +1,7 @@
-import { StyleSheet, Text, View, Modal, Pressable, Image } from 'react-native'
+import { StyleSheet, Text, View, Modal, Pressable, Image, Dimensions } from 'react-native'
 import React, { useState } from 'react'
 import { FontAwesome5, Fontisto, Ionicons } from '@expo/vector-icons'
-
+import MapView, { Marker } from 'react-native-maps';
 import { useNavigation } from '@react-navigation/native'
 
 import Colors from '../constants/colors'
@@ -11,6 +11,23 @@ const MapsProcess = () => {
   const [modalVisible, setModalVisible] = useState(false)
   return (
     <View style={styles.screen}>
+      <MapView
+				style={styles.map}
+				//場所の指定
+				initialRegion={{
+					latitude: 34.7066, //緯度
+					longitude: 135.5029, //経度
+					latitudeDelta: 0.001, //緯度の縮尺
+					longitudeDelta: 0.001 //経度の縮尺
+				}}
+			>
+				<Marker
+					coordinate={option.marker.latlng} //座標(緯度、経度)
+					title={option.marker.title} //ピンのタイトル
+					description={option.marker.description} //説明
+					onPress={() => setModalVisible(true)} //クリック時の処理
+				/>
+			</MapView>
       <Pressable
         style={[styles.qr, styles.circleStyle]}
         onPress={() => navigation.navigate('QR')}
@@ -103,7 +120,7 @@ const styles = StyleSheet.create({
   centeredView: {
     flex: 1,
     justifyContent: 'flex-end',
-    marginBottom: 90,
+    marginBottom: 40,
   },
   buttonClose: {
     position: 'absolute',
@@ -190,4 +207,19 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 4,
   },
+  map: {
+		width: Dimensions.get('window').width, //横の寸法取得
+		height: Dimensions.get('window').height //縦の寸法取得
+	}
 })
+
+const option = {
+	marker: {
+		title: 'RICH GARDEN',
+		discription: 'ラーメン屋',
+		latlng: {
+			latitude: 34.70663,
+			longitude: 135.5029
+		}
+	}
+}

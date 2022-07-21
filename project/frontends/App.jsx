@@ -24,6 +24,8 @@ import ResignerGroup3 from './screens/ResignerGroup/ResignerGroup3'
 import QR from './screens/QR'
 import Stamp from './screens/Stamp'
 
+import { UserProvider } from './contexts/UserContext';
+
 const Stack = createNativeStackNavigator()
 const BottomTabs = createBottomTabNavigator()
 
@@ -135,36 +137,38 @@ export default function App() {
               headerShown: false,
             }}
           />
-          <Stack.Screen
-            name='ResignerPage1'
-            component={ResignerPage1}
-            options={{ title: 'Step 1' }}
-          />
-          <Stack.Screen
-            name='ResignerPage2'
-            component={ResignerPage2}
-            options={{ title: 'Step 2' }}
-          />
-          <Stack.Screen
-            name='ResignerPage3'
-            component={ResignerPage3}
-            options={{ title: 'Step 3' }}
-          />
-          <Stack.Screen
-            name='ResignerGroup1'
-            component={ResignerGroup1}
-            options={{ title: 'Step 1' }}
-          />
-          <Stack.Screen
-            name='ResignerGroup2'
-            component={ResignerGroup2}
-            options={{ title: 'Step 2' }}
-          />
-          <Stack.Screen
-            name='ResignerGroup3'
-            component={ResignerGroup3}
-            options={{ title: 'Step 3' }}
-          />
+          <UserProvider>
+            <Stack.Screen
+              name='ResignerPage1'
+              component={ResignerPage1}
+              options={{ title: 'Step 1' }}
+            />
+            <Stack.Screen
+              name='ResignerPage2'
+              component={ResignerPage2}
+              options={{ title: 'Step 2' }}
+            />
+            <Stack.Screen
+              name='ResignerPage3'
+              component={ResignerPage3}
+              options={{ title: 'Step 3' }}
+            />
+            <Stack.Screen
+              name='ResignerGroup1'
+              component={ResignerGroup1}
+              options={{ title: 'Step 1' }}
+            />
+            <Stack.Screen
+              name='ResignerGroup2'
+              component={ResignerGroup2}
+              options={{ title: 'Step 2' }}
+            />
+            <Stack.Screen
+              name='ResignerGroup3'
+              component={ResignerGroup3}
+              options={{ title: 'Step 3' }}
+            />
+          </UserProvider>
         </Stack.Navigator>
       </NavigationContainer>
     </>

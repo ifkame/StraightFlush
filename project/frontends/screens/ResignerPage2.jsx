@@ -22,6 +22,8 @@ import { sexual } from '../constants/data'
 
 import { useNavigation } from '@react-navigation/native'
 
+import { userContext } from '../contexts/UserContext';
+
 const labels = ['Step 1', 'Step 2', 'Step 3']
 const customStyles = {
   stepIndicatorSize: 25,
@@ -48,8 +50,7 @@ const customStyles = {
 }
 
 const ResignerPage = () => {
-  const [show, setShow] = useState(false)
-  const [gender, setGender] = useState('女性')
+  const { age, SetAge, gender, SetGender } = userContext
 
   const navigation = useNavigation('ResignerPage3')
 
@@ -87,7 +88,7 @@ const ResignerPage = () => {
               {Platform.OS !== 'ios' ? (
                 <Picker
                   selectedValue={gender}
-                  onValueChange={(value, index) => setGender(value)}
+                  onValueChange={(value, index) => SetGender(value)}
                   mode='dialog'
                   style={
                     Platform.OS !== 'ios' ? styles.picker : styles.pickerIOS
@@ -99,7 +100,7 @@ const ResignerPage = () => {
                 </Picker>
               ) : (
                 <Pressable
-                  onPress={() => setShow(true)}
+                  onPress={() => SetAge(true)}
                   style={styles.inputView}
                 >
                   <Text style={styles.inputText}>{gender}</Text>
@@ -109,12 +110,12 @@ const ResignerPage = () => {
             </View>
             <PrimaryButton onPress={onPressNext}>次へ</PrimaryButton>
           </View>
-          {show && Platform.OS === 'ios' && (
+          {age && Platform.OS === 'ios' && (
             <CustomPicker
-              setShowModal={setShow}
-              showModal={show}
+              setAgeModal={SetAge}
+              ageModal={age}
               value={gender}
-              setValue={setGender}
+              setValue={SetGender}
               items={sexual}
             />
           )}
