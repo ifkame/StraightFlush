@@ -8,6 +8,7 @@ import {decode, encode} from 'base-64';
 
 import React, { useState, useRef, useEffect } from 'react';
 import { StyleSheet, Text, View, Button, Switch } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import * as Device from 'expo-device';                      //デバイス情報
 import * as BackgroundFetch from 'expo-background-fetch';   //バックグラウンド
 import * as TaskManager from 'expo-task-manager';           //タスクマネージャー
@@ -78,7 +79,7 @@ async function registerBackgroundFetchAsync() {
     //console.log('BackgroundFetch_Sucsessed')
     return BackgroundFetch.registerTaskAsync(BACKGROUND_FETCH_TASK, {
         // バックグラウンドフェッチアラームの後続の繰り返し間の秒単位の不正確な間隔
-        minimumInterval: 2,
+        minimumInterval: 1,
         // ユーザーがアプリを終了した後にバックグラウンドフェッチイベントの受信を停止するかどうか
         stopOnTerminate: false, // android only,
         // デバイスの起動が終了したときにバックグラウンドフェッチイベントを再開するかどうか
@@ -107,6 +108,8 @@ function Notification() {
     const [notification, setNotification] = useState(false);
     const notificationListener = useRef();
     const responseListener = useRef();
+
+    const navigation = useNavigation()
 
     useEffect(() => {
         checkStatusAsync();
@@ -179,6 +182,7 @@ function Notification() {
         //（アプリがフォアグラウンド、バックグラウンド、または強制終了されたときに機能します）
         //このリスナーは、ユーザーが特定の通知をタップした後、特定の画面にユーザーをルーティングする場合に特に便利です。
         responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
+            navigation.navigate('Maps')
             console.log(response);
         });
         return () => {
@@ -239,7 +243,7 @@ async function schedulePushNotification() {
                 body: '肉料理: RICH GARDEN',
                 data: { data: 'goes here' },
             },
-            trigger: { seconds: 2 },
+            trigger: { seconds: 1 },
         })
     );
 }
