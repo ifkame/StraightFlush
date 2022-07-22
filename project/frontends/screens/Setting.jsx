@@ -22,6 +22,8 @@ import Colors from '../constants/colors';
 import PrimaryButton from '../components/PrimaryButton';
 import { time, meter, textSize } from '../constants/data';
 
+import Notification from '../components/Notification'
+
 const Setting = () => {
 	const [ modalTop, setModalTop ] = useState(false);
 	const [ modalBottom, setModalBottom ] = useState(false);
@@ -64,7 +66,8 @@ const Setting = () => {
 					<View style={styles.image}>
 						<Image source={require('../assets/setting.png')} style={{ width: 70, height: 70 }} />
 					</View>
-					<View style={styles.switch}>
+					<Notification />
+					{/* <View style={styles.switch}>
 						<Text style={styles.textLabel}>通知</Text>
 						<Switch
 							trackColor={{ false: '#767577', true: Colors.primary2 }}
@@ -73,7 +76,7 @@ const Setting = () => {
 							onValueChange={toggleSwitch}
 							value={isEnabled}
 						/>
-					</View>
+					</View> */}
 					<View>
 						<Text style={styles.textLabel}>再通知期間</Text>
 						{Platform.OS !== 'ios' ? (

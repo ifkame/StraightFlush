@@ -7,12 +7,14 @@ if (!global.atob) {
 import {decode, encode} from 'base-64';
 
 import React, { useState, useRef, useEffect } from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View, Button, Switch } from 'react-native';
 import * as Device from 'expo-device';                      //デバイス情報
 import * as BackgroundFetch from 'expo-background-fetch';   //バックグラウンド
 import * as TaskManager from 'expo-task-manager';           //タスクマネージャー
 import * as Notifications from 'expo-notifications';        //通知設定
 import * as Location from 'expo-location';                  //位置情報
+
+import Colors from '../constants/colors';
 
 // console.log('エラー情報：', ErrorRecovery.setRecoveryProps(props))  //エラー情報表示
 
@@ -206,44 +208,26 @@ function Notification() {
         } else {
             await registerBackgroundFetchAsync();
         }
+        // isRegistered = !isRegistered;
         console.log('toggleFetchTask')
         checkStatusAsync();
     };
 
     return (
-        <View style={styles.screen}>
-            <View style={styles.textContainer}>
-                <Text>
-                Background fetch status:{' '}
-                <Text style={styles.boldText}>
-                    {status && BackgroundFetch.BackgroundFetchStatus[status]}
-                </Text>
-                </Text>
-                <Text>
-                Background fetch task name:{' '}
-                <Text style={styles.boldText}>
-                    {isRegistered ? BACKGROUND_FETCH_TASK : 'Not registered yet!'}
-                </Text>
-                </Text>
-            </View>
-            <View style={styles.textContainer}></View>
-            <Button
-                title={isRegistered ? 'Unregister BackgroundFetch task' : 'Register BackgroundFetch task'}
-                onPress={toggleFetchTask}
-            />
-            <Text>Your expo push token: {expoPushToken}</Text>
-            <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                <Text>Title: {notification && notification.request.content.title} </Text>
-                <Text>Body: {notification && notification.request.content.body}</Text>
-                <Text>Data: {notification && JSON.stringify(notification.request.content.data)}</Text>
-            </View>
-            <Button
-                title="Press to schedule a notification"
-                onPress={async () => {
-                    await schedulePushNotification();
-                }}
+        <View style={styles.switch}>
+            <Text style={styles.textLabel}>通知</Text>
+            <Switch
+                trackColor={{ false: '#767577', true: Colors.primary2 }}
+                thumbColor="white"
+                ios_backgroundColor="#333"
+                onValueChange={toggleFetchTask}
+                value={isRegistered}
             />
         </View>
+        // <Button
+        //     title={isRegistered ? 'Unregister BackgroundFetch task' : 'Register BackgroundFetch task'}
+        //     onPress={toggleFetchTask}
+        // />
     );
 }
 
@@ -319,18 +303,29 @@ async function registerForPushNotificationsAsync() {
 }
 
 const styles = StyleSheet.create({
-    screen: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-
-    textContainer: {
-        margin: 10,
-    },
-    boldText: {
-        fontWeight: 'bold',
-    },
+    // screen: {
+    //     flex: 1,
+    //     justifyContent: 'center',
+    //     alignItems: 'center',
+    // },
+    // textContainer: {
+    //     margin: 10,
+    // },
+    // boldText: {
+    //     fontWeight: 'bold',
+    // },
+    textLabel: {
+		fontSize: 16,
+		fontWeight: 'bold',
+		marginVertical: 10
+	},
+    switch: {
+		width: '100%',
+		flexDirection: 'row',
+		marginTop: 80,
+		justifyContent: 'space-between',
+		paddingHorizontal: 46
+	}
 });
 
 export default Notification;
