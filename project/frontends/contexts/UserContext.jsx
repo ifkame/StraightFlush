@@ -1,23 +1,22 @@
-import { string } from 'prop-types';
 import React from 'react';
 import { createContext, useState, useContext, useEffect } from 'react';
 
-const defaultContext = {
-	email: string,
-	SetEmail: React.Component,	
-	password: string,
-	SetPassword: React.Component,
-	age: Date,
-	SetAge: React.Component,
-	gender: string,
-	SetGender: React.Component,
-	frequency: string,
-	SetFrequency: React.Component,
-	range: string,
-	SetRange: React.Component,
-}
+// const defaultContext = {
+// 	email: string,
+// 	SetEmail: React.Component,	
+// 	password: string,
+// 	SetPassword: React.Component,
+// 	age: Date,
+// 	SetAge: React.Component,
+// 	gender: string,
+// 	SetGender: React.Component,
+// 	frequency: string,
+// 	SetFrequency: React.Component,
+// 	range: string,
+// 	SetRange: React.Component,
+// }
 
-const CreateContext = createContext(defaultContext);
+const CreateContext = createContext("light");
 
 export function userContext() {
 	return useContext(CreateContext);
