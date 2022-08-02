@@ -36,6 +36,8 @@ APIを利用することで難しい処理を自分で書かずともアプリ�
 
 <BR>
 
+<div style="page-break-before:always"></div>
+
 <a id="anchor2"></a>
 # APIの方式とRESTAPI
  ## APIの方式
@@ -78,6 +80,8 @@ HTTPをベースにしたステートレスなクライアント/サーバプロ
 
 <BR>
 
+<div style="page-break-before:always"></div>
+
 ## REST APIの例
 
 エンドポイント(URL)
@@ -98,6 +102,8 @@ PUTでアクセス : ユーザーの更新
 DELETEでアクセス : ユーザーの削除
 
 <BR>
+
+<div style="page-break-before:always"></div>
 
 <a id="anchor3"></a>
 # REST APIを支える技術
@@ -138,6 +144,7 @@ REST APIではAPIの処理結果に対して適切なステータスコードを
 
 <BR>
 
+<div style="page-break-before:always"></div>
 
 ## JSON
 

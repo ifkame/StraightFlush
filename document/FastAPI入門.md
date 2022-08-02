@@ -25,6 +25,7 @@ Python3.6で動作するAPI作成に特化したフレームワークです。
 
 <BR>
 
+<div style="page-break-before:always"></div>
 
 <a id="anchor2"></a>
 # Hello World
@@ -76,6 +77,8 @@ FstaAPIではSwaggerというツールからAPIのドキュメントを自動生
 [localhost:8081/docs](http://localhost:8081/docs)
 
 <BR>
+
+<div style="page-break-before:always"></div>
 
 <a id="anchor3"></a>
 
